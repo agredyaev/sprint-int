@@ -86,8 +86,10 @@ test('executive KPI strip exposes five metrics and semantic status accents', () 
   const app = read('../site/assets/app.js');
   const css = read('../site/assets/styles.css');
   assert.match(app, /\['active_initiatives','Active initiatives'/);
-  assert.match(app, /trend-positive/);
-  assert.match(app, /trend-negative/);
+  assert.match(app, /metric-trend trend-\$\{trend\}/);
+  assert.match(app, /\?'positive':'negative'/);
+  assert.match(css, /\.metric-trend\.trend-positive/);
+  assert.match(css, /\.metric-trend\.trend-negative/);
   assert.match(app, /status \$\{tone\}/);
   assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
   assert.match(css, /\.status\.blocked/);
