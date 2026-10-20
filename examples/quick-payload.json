@@ -1,0 +1,287 @@
+{
+  "sprint": {
+    "schema_version": 2,
+    "id": "26.21",
+    "started_on": "2026-10-05",
+    "ended_on": "2026-10-16",
+    "period_label": "5–16 Oct 2026",
+    "team": "Reporting & Analytics",
+    "executive_summary": "Reporting delivery advanced across customer and strategic initiatives. Financial planning integration remains dependent on DWH.",
+    "pulse": "Sales reporting launched and forecast controls deployed; the reporting API modernization passed a core milestone.",
+    "attention": "Finance dashboard integration is waiting for a DWH dimensional model.",
+    "attention_owner": "Decision owner: Data Platform · target 23 Oct",
+    "reviewed_issues": 42,
+    "published_at": "2026-10-16T16:42:00Z",
+    "is_demo": true
+  },
+  "metrics": {
+    "material_outcomes": 3,
+    "blocked_initiatives": 1,
+    "at_risk_initiatives": 1,
+    "verified_time_saved_hours": 18,
+    "manual_operations": 34,
+    "automation_candidates": 2,
+    "automation_delivered": 1,
+    "active_initiatives": 7
+  },
+  "epics": [
+    {
+      "jira_key": "TABLEAUBI-42310",
+      "title": "Sales performance reporting",
+      "domain": "Commercial reporting",
+      "category": "product",
+      "delivery_team": "Reporting",
+      "reporting_scope": "in_scope",
+      "status": "DELIVERED",
+      "importance": "important",
+      "highlight_rank": 1,
+      "objective": "Release validated regional sales KPIs.",
+      "delivered": "New executive sales view released to production.",
+      "impact": "Regional sales leadership can see consolidated KPIs.",
+      "planned_next": "Monitor adoption and finalize access rollout.",
+      "risk": "",
+      "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42310",
+      "tasks": [
+        {
+          "jira_key": "TABLEAUBI-42311",
+          "title": "Finalize sales KPI definitions",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Regional KPIs signed off.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42311"
+        },
+        {
+          "jira_key": "TABLEAUBI-42312",
+          "title": "Publish sales reporting view",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Reporting view published.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42312"
+        }
+      ]
+    },
+    {
+      "jira_key": "TABLEAUBI-42504",
+      "title": "Forecast quality controls",
+      "domain": "Finance reporting",
+      "category": "product",
+      "delivery_team": "Reporting",
+      "reporting_scope": "in_scope",
+      "status": "DELIVERED",
+      "importance": "important",
+      "highlight_rank": 2,
+      "objective": "Prevent incomplete finance forecasts reaching reports.",
+      "delivered": "Forecast refresh checks deployed and verified.",
+      "impact": "Incomplete loads now fail before dashboard refresh.",
+      "planned_next": "Monitor scheduled alerts with Finance.",
+      "risk": "",
+      "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42504",
+      "tasks": [
+        {
+          "jira_key": "TABLEAUBI-42511",
+          "title": "Implement completeness checks",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Blocking checks activated.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42511"
+        },
+        {
+          "jira_key": "TABLEAUBI-42518",
+          "title": "Verify failure notification",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Failure notification validated.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42518"
+        }
+      ]
+    },
+    {
+      "jira_key": "TABLEAUBI-41862",
+      "title": "Finance planning dashboards",
+      "domain": "Finance reporting",
+      "category": "product",
+      "delivery_team": "Reporting",
+      "reporting_scope": "in_scope",
+      "status": "BLOCKED",
+      "importance": "normal",
+      "highlight_rank": null,
+      "objective": "Deliver FY28 plan vs forecast analytics.",
+      "delivered": "Reporting requirements and KPI mappings approved.",
+      "impact": "Requirements are ready for implementation.",
+      "planned_next": "Await DWH dimensional model.",
+      "risk": "DWH-4812 model delivery blocks Reporting integration.",
+      "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-41862",
+      "tasks": [
+        {
+          "jira_key": "TABLEAUBI-41870",
+          "title": "Approve planning requirements",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Planning requirements approved.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-41870"
+        },
+        {
+          "jira_key": "TABLEAUBI-41888",
+          "title": "Integrate planning semantic layer",
+          "status": "BLOCKED",
+          "delivery_team": "Reporting",
+          "outcome": "Waiting for DWH-4812.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-41888"
+        }
+      ]
+    },
+    {
+      "jira_key": "TABLEAUBI-42017",
+      "title": "Reporting API modernization",
+      "domain": "Strategic internal",
+      "category": "strategic",
+      "delivery_team": "Reporting",
+      "reporting_scope": "in_scope",
+      "status": "PROGRESSING",
+      "importance": "important",
+      "highlight_rank": 3,
+      "objective": "Modernize reporting interfaces.",
+      "delivered": "Core service integration and fallback completed.",
+      "impact": "Reduces maintenance and migration risk.",
+      "planned_next": "Run compatibility validation and cutover review.",
+      "risk": "",
+      "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42017",
+      "tasks": [
+        {
+          "jira_key": "TABLEAUBI-42046",
+          "title": "Complete core API integration",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Core path integrated.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42046"
+        },
+        {
+          "jira_key": "TABLEAUBI-42061",
+          "title": "Validate API compatibility",
+          "status": "PROGRESSING",
+          "delivery_team": "Reporting",
+          "outcome": "Two cases remain to verify.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42061"
+        }
+      ]
+    },
+    {
+      "jira_key": "TABLEAUBI-41201",
+      "title": "Legacy reporting retirement",
+      "domain": "Strategic internal",
+      "category": "strategic",
+      "delivery_team": "Reporting",
+      "reporting_scope": "in_scope",
+      "status": "AT_RISK",
+      "importance": "normal",
+      "highlight_rank": null,
+      "objective": "Retire unsupported reporting paths.",
+      "delivered": "Legacy consumers and retirement scope mapped.",
+      "impact": "Cleanup can begin once compatibility is proven.",
+      "planned_next": "Resolve regional export compatibility.",
+      "risk": "Outstanding export mismatch threatens retirement date.",
+      "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-41201",
+      "tasks": [
+        {
+          "jira_key": "TABLEAUBI-41202",
+          "title": "Map legacy report consumers",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Consumer inventory approved.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-41202"
+        },
+        {
+          "jira_key": "TABLEAUBI-41203",
+          "title": "Resolve export compatibility",
+          "status": "AT_RISK",
+          "delivery_team": "Reporting",
+          "outcome": "Export defect requires remediation.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-41203"
+        }
+      ]
+    },
+    {
+      "jira_key": "TABLEAUBI-42630",
+      "title": "Finance access provisioning",
+      "domain": "Finance reporting",
+      "category": "product",
+      "delivery_team": "Reporting",
+      "reporting_scope": "in_scope",
+      "status": "PROGRESSING",
+      "importance": "normal",
+      "highlight_rank": null,
+      "objective": "Simplify provisioning for reporting consumers.",
+      "delivered": "New role matrix confirmed by finance owners.",
+      "impact": "Removes manual approval ambiguity.",
+      "planned_next": "Pilot access provisioning with two user groups.",
+      "risk": "",
+      "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42630",
+      "tasks": [
+        {
+          "jira_key": "TABLEAUBI-42631",
+          "title": "Approve role ownership matrix",
+          "status": "DELIVERED",
+          "delivery_team": "Reporting",
+          "outcome": "Access ownership confirmed.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42631"
+        }
+      ]
+    },
+    {
+      "jira_key": "TABLEAUBI-42803",
+      "title": "Regional reporting rollout",
+      "domain": "Commercial reporting",
+      "category": "product",
+      "delivery_team": "Reporting",
+      "reporting_scope": "in_scope",
+      "status": "PROGRESSING",
+      "importance": "normal",
+      "highlight_rank": null,
+      "objective": "Extend regional reporting coverage.",
+      "delivered": "First rollout cohort completed acceptance review.",
+      "impact": "Validates readiness for wider adoption.",
+      "planned_next": "Complete regional launch readiness check.",
+      "risk": "",
+      "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42803",
+      "tasks": [
+        {
+          "jira_key": "TABLEAUBI-42804",
+          "title": "Validate rollout cohort",
+          "status": "PROGRESSING",
+          "delivery_team": "Reporting",
+          "outcome": "First reporting cohort accepted.",
+          "jira_url": "https://example.atlassian.net/browse/TABLEAUBI-42804"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "epic_key": "TABLEAUBI-41862",
+      "jira_key": "DWH-4812",
+      "title": "Finance dimensional model",
+      "team": "Data Warehouse",
+      "status": "PROGRESSING",
+      "impact": "Required for Finance dashboard integration. DWH deliverable is not Reporting progress.",
+      "planned_next": "Confirm warehouse handoff and acceptance date.",
+      "jira_url": "https://example.atlassian.net/browse/DWH-4812"
+    },
+    {
+      "epic_key": "TABLEAUBI-42310",
+      "jira_key": "DWH-4864",
+      "title": "Regional CRM attributes",
+      "team": "Data Warehouse",
+      "status": "DELIVERED",
+      "impact": "Regional reporting required new source attributes.",
+      "planned_next": "Verify handoff against Reporting mapping.",
+      "jira_url": "https://example.atlassian.net/browse/DWH-4864"
+    }
+  ],
+  "quality": {
+    "classification": "passed",
+    "scope": "passed",
+    "evidence": "passed",
+    "sharpwriter": "passed",
+    "publication": "passed"
+  }
+}
