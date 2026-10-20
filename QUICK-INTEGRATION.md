@@ -1,6 +1,6 @@
 # Quick → GitHub Pages handoff
 
-1. Read `skills/sprint-intelligence/references/orchestration.md` and `references/storage-contract.md`. Collect only the selected sprint's Reporting issue membership and fetch every referenced epic's full context separately, even outside the sprint. Process bounded epic packets in parallel **only if Quick supports actual subagents**; strict merge/independent review/global ranking remain orchestrator-owned. Then run the full `skills/sprint-intelligence/SKILL.md` workflow, with real
+1. Read `skills/sprint-intelligence/references/orchestration.md` and `skills/sprint-intelligence/references/storage-contract.md`. Collect only the selected sprint's Reporting issue membership and fetch every referenced epic's full context separately, even outside the sprint. Process bounded epic packets in parallel **only if Quick supports actual subagents**; strict merge/independent review/global ranking remain orchestrator-owned. Then run the full `skills/sprint-intelligence/SKILL.md` workflow, with real
    independent classification review and full `sharpwriter` Quality Gate.
 2. Validate the approved concise report with the allowlisted schema. Never
    export raw Jira tickets, comments, changelogs, private analyses, review
@@ -25,7 +25,7 @@ python skills/sprint-intelligence/scripts/pages/export.py \
   --report "$RUN/report.md" \
   --manifest "$RUN/report-manifest.json" \
   --receipt "$RUN/sharpwriter-receipt.json" \
-  --repo /path/to/sprint-intelligence-pages
+  --repo /path/to/sprint-int
 ```
 
 Produce the compact payload before `quality_gate.py publish --payload`; the exporter rechecks exact quality, report, selection, receipt and payload digests. Details: [docs/QUALITY-INTEGRITY.md](docs/QUALITY-INTEGRITY.md).

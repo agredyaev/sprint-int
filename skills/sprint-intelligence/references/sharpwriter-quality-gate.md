@@ -11,8 +11,8 @@
    - `evidence_attribution`: each substantive outcome, milestone, risk and quantitative claim has an accurate Jira/Confluence reference.
    - `no_unsupported_value_claims`: do not equate Jira activity with delivered business value; preserve unknowns.
    - `highlight_relevance`: exactly the quality-approved top epics; no routine/manual-only epic elevated by ticket volume.
-   - `materiality_and_risks`: verified customer milestones and important internal initiatives are explained sufficiently; blockers accurately represented.
-   - `clarity_and_concision`: stakeholder-language, clear before→after, no duplicate narrative, appropriately short.
+   - `materiality_and_risks`: each selected milestone states the evidenced change, affected users/systems and outstanding blockers.
+   - `clarity_and_concision`: use before→after statements; delete repeated claims and unsubstantiated adjectives.
    - `coverage_and_uncertainty`: all coverage gaps and unverified metrics remain visible.
 4. Apply requested corrections, then re-run full sharpwriter gate on the **exact final bytes** of `report.md` **and final payload content**, not an earlier draft. Cap revisions at two attempts before halting and escalating unresolved issues. The sharpwriter result itself must indicate PASS with zero outstanding critical/major issues; this skill cannot assume success just because it was invoked.
 5. Record the result as `sharpwriter-receipt.json` *only from an actual invocation*:

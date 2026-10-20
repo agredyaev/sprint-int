@@ -1,4 +1,4 @@
-# Final report template — customer value first
+# Sprint report template
 
 Only write stakeholder-facing `report.md` after `out/quality.json` passes. Top highlights are **exactly** `out/highlight_selection.json.selected_epic_keys`; `rollup.json.epics` is an unranked inventory, NOT a ranking. Do not promote an epic because it has many issues, statuses or comments.
 

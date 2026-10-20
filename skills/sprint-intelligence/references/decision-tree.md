@@ -1,9 +1,9 @@
 # Minimal decision tree — apply per root work item
 
-**Always start from dated sprint-window facts, not ticket counts.** The decision tree is descriptive. Read the full classification rubric if a branch is unclear.
+Classify from dated changes inside the sprint window. Ignore ticket counts when determining outcomes. Use `classification.md` for edge cases.
 
 ```text
-A. Has any meaningful fact changed during this sprint?
+A. What verifiable change occurred within the sprint?
    ├─ Confirmed delivery/acceptance/reliability outcome → outcome=delivered_verified
    ├─ Documented intermediate step → outcome=in_progress
    ├─ Explicit active impediment → outcome=blocked
@@ -50,5 +50,5 @@ E. Did an AI/automation initiative itself advance this sprint?
 2. Compare starting vs current state **only if changelog or baseline supports it**.
 3. Flag incident recovery under reliability/risks, not as shipped feature. Executive highlights are product and strategic internal milestones verified in-sprint.
 4. Independently quantify operational burden, manual recurring work, automation/AI adoption and proposals.
-5. High ticket count with no proven advancement → *investigate/flag mismatch*, never claim zero value.
+5. High ticket count without evidence of a milestone → mark progress unverified; do not infer zero value.
 6. No verified advancement → include epic in compact section; do not silently drop it.

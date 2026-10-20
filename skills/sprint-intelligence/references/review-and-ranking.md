@@ -1,7 +1,7 @@
 # Independent classification review and epic highlight selection (mandatory)
 
-## Why this gate exists
-Jira activity (tickets, updates, Done statuses, comments, repeated extracts) is a measure of work volume, **not** a measure of customer or product advancement. A valid executive summary prioritizes customer deliverables and real strategic internal engineering initiatives, not helpdesk throughput. Run this gate **after** first-pass classification and **before** writing executive highlights. The Python script supplies deterministic plans and exclusions, while the Quick agent checks the semantics against primary source documents.
+## Gate scope
+Run after classification and before highlighting epics. Jira activity does not prove delivery. Python determines review coverage and eligibility; the Quick reviewer verifies claims against Jira/Confluence.
 
 ## 1. Independent classification verification
 
@@ -12,7 +12,7 @@ python scripts/quality_gate.py review-plan --snapshot snapshot.json --issues iss
 ```
 
 2. Read `out/classification_review_plan.json`. Review 100% of root issues that could affect highlights: feature/product, substantial platform or refactor, verified delivery, blocked issues, automation changes, incidents and ambiguous labels. Also examine a stable ~25% sample (minimum 3 if available) of other routine tickets. Subtasks are evidence of the parent, not independent root outcomes.
-3. **Independent verification:** ideally use a second agent with separate context and fresh primary Jira/Confluence evidence. If independent agents are unavailable, run a new isolated review pass from local raw normalized sources **before revealing the first-pass classifications**, then compare. Do not let the reviewer just paraphrase the first pass. Verification includes re-reading relevant raw issue/linked evidence, outcome timing, process/work_type, automation actuality, and whether an in-progress milestone is a genuine change.
+3. **Independent verification:** use a second agent with primary Jira/Confluence evidence. If no second agent is available, conduct an isolated pass against raw sources **without exposing first-pass classifications**. Compare the results afterwards. Verification includes re-reading relevant raw issue/linked evidence, outcome timing, process/work_type, automation actuality, and whether an in-progress milestone is a genuine change.
 4. Produce `classification_reviews.jsonl` with one reviewer record for every `review_issue_key`. Required:
 
 ```json
@@ -55,7 +55,7 @@ Do the root issues contain substantive delivery work?
   NO: incidents/recovery plus routine -> reliability/incident section;
       exceptional critical risk can be mentioned in executive risk sentence, not as feature delivery.
   YES: feature / enhancement / verified fix / platform / engineering improvement
-    Is the epic customer-facing or a meaningful internal initiative?
+    Does the epic deliver a customer capability or a documented internal engineering milestone?
       NO/UNKNOWN -> investigate goal, otherwise appendix/coverage.
       YES: Is there an evidence-backed in-sprint milestone or active critical-path blocker?
         NO -> no main highlight, still record status in appendix.
@@ -66,7 +66,7 @@ Do the root issues contain substantive delivery work?
 
 Sort by materiality (high before medium), then milestone evidence/state (verified delivered, blocked, progressing), then customer before internal **only on equal preceding factors**, then epic key. The orchestrator must use this order unchanged. Default limit: 5 top epics; other material initiatives in a separate concise section. Ticket count/activity does **not** break ties. Risks that jeopardize critical commitments appear separately even if they are not among top five.
 
-**Important distinction**: a customer request satisfied by clicking buttons is not a customer *product project*. It is customer support. A program that replaces those clicks with a reusable self-service capability *can* be a product enhancement when verified.
+An individual service request is operational support. A verified reusable self-service capability is a product enhancement.
 
 ## 4. Run the gate
 

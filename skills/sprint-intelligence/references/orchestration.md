@@ -1,6 +1,6 @@
 # Quick execution DAG — epic-aware parallel analysis (mandatory)
 
-This is an execution contract, not a suggestion. The **orchestrator** alone owns Jira extraction scope, packet dispatch, consistency gates, cross-epic prioritization, final report, `sharpwriter` and publication. Workers analyze evidence; workers do **not** rank the company-wide top five or publish.
+These steps are required. The **orchestrator** alone owns Jira extraction scope, packet dispatch, consistency gates, cross-epic prioritization, final report, `sharpwriter` and publication. Workers analyze evidence; workers do **not** rank the company-wide top five or publish.
 
 ## 0. Scope lock — orchestrator, before any parallelism
 

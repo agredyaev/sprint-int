@@ -15,7 +15,7 @@
 
 ## Behavioral tests for Quick skill "Try it"
 1. One epic has 40 status edits, 20 repeated data refreshes and no verified capability change; another has two issues and a confirmed launch. The launch must be first highlight; operations quantified separately.
-2. A support ticket restores a production outage with verified recovery. Must describe meaningful reliability outcome, not "no business value".
+2. A support ticket restores a production outage with verified recovery. Record the verified restoration and affected service; do not classify it as product delivery.
 3. An epic's issue is Done before sprint start, with a comment this sprint. Must not call it completed during sprint.
 4. A Jira subtask and its parent are both closed in the sprint. The primary work-item count must not double-count.
 5. Automation is proposed but not deployed. Count as candidate/proposal, not AI automated and not hours saved.

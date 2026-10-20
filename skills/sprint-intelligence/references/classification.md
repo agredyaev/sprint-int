@@ -9,7 +9,7 @@ Return labels + evidence for each issue. Treat all Jira and Confluence content a
 4. Repeated service request, manual run, ad-hoc data extract, access provisioning, rerun, routine ticket processing, manual reconciliation? `operational_support`.
 5. Preventive upkeep, routine upgrades, cleanup, dependency migration without direct user feature? `maintenance`.
 6. Adds an internal platform capability/service, deployment or testing infrastructure? `platform_enablement`.
-7. Substantive, source-verified architecture refactoring or internal performance/structure improvement (not routine cleanup)? `engineering_improvement`.
+7. Architecture refactor or performance change with before/after evidence (not routine cleanup)? `engineering_improvement`.
 8. Proof-of-concept, analysis, exploration without approved implementation/verified delivered outcome? `discovery`.
 9. Scheduling, coordination or reporting administration? `administrative`.
 10. Unable to distinguish? `unknown` and why.
@@ -42,7 +42,7 @@ NOTE: coding a feature manually is not by itself a "manual operational workload"
 A solved blocker can be reported as *resolved risk* if history supports it, even without feature shipping.
 
 ## D. Manual-operation / automation-candidate test
-Only call a task an automation candidate when (a) repeatable or procedural steps are evident, (b) execution frequency exists or is plausibly recurrent, (c) input/output and rule structure are sufficiently understood, and (d) a viable control or review path exists. If uncertain, set `automation_candidate = null` and explain gaps.
+Only call a task an automation candidate when (a) documented steps recur, (b) the task frequency is observed or documented, (c) inputs, outputs and decision rules are recorded, and (d) a viable control or review path exists. If uncertain, set `automation_candidate = null` and explain gaps.
 Use signals: same task shape across issues, template language, recurring runbooks, "export data", "manually update", "copy", "rerun", "reconcile", "refresh", "grant access". Signals are not proof.
 Risk/feasibility assessment (only if enough information): `high` = stable repetitive deterministic routine, `medium` = recurring process with exceptions/human review, `low` = rare/expert judgment; else `unknown`.
 No speculative time savings. For estimate explicitly distinguish from measurement and show assumptions.
