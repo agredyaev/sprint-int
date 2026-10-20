@@ -54,12 +54,12 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
       return p+` C ${a.toFixed(1)} ${b.toFixed(1)} ${c.toFixed(1)} ${d.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`;
     },'');
   };
-  function plot(values, id) {
+  function plot(values) {
     if(values.length<2 || values.some(x=>x.value == null || !Number.isFinite(x.value))) return '';
     const v=values.map(x=>x.value), min=Math.min(...v), max=Math.max(...v);
     const span=Math.max(max-min,1), pts=v.map((y,i)=>[5+(230*i/(v.length-1)), 20+(max-y)/span*75]);
-    const curve=smooth(pts), gid='fill-'+id;
-    return `<svg viewBox="0 0 240 130" preserveAspectRatio="none" role="img" aria-label="Four-sprint trend: ${v.join(', ')}"><defs><linearGradient id="${gid}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--accent-line)" stop-opacity=".11"/><stop offset="1" stop-color="var(--accent-line)" stop-opacity="0"/></linearGradient></defs><path fill="url(#${gid})" d="${curve} L 235 130 L 5 130 Z"/><path d="${curve}" fill="none" stroke="var(--accent-line)" stroke-width="1.35" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`;
+    const curve=smooth(pts);
+    return `<svg viewBox="0 0 240 130" preserveAspectRatio="none" role="img" aria-label="Four-sprint trend: ${v.join(', ')}"><path class="curve" d="${curve}" fill="none" vector-effect="non-scaling-stroke"/></svg>`;
   }
   const arrowFor = diff => diff>0?'↗':diff<0?'↘':'–';
   function renderMetric(data){
@@ -68,7 +68,7 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
       const val=metricAmount(data,key), diff=(previous===null || val===null)?null:val-previous;
       const delta=diff===null?(val===null?'Not measured':'No comparable prior value'):diff===0?'No change from previous sprint':`${diff>0?'+':'−'}${numeric(Math.abs(diff))}${unit} from previous sprint`;
       const trend=diff===null||diff===0||better==='neutral'?'neutral':((diff>0)===(better==='up')?'positive':'negative');
-      return `<div class="metric metric-tone-${tone}"><div class="metric-content"><span class="metric-label">${label}</span><span class="metric-note">${note}</span><div class="metric-value">${numeric(val)}${unit&&val!==null?`<span class="unit">${unit}</span>`:''}</div><div class="metric-trend trend-${trend}"><span class="metric-trend-icon" aria-hidden="true">${diff===null?'–':arrowFor(diff)}</span><span>${delta}</span></div></div><div class="spark-area">${plot(series,`m${i}`)}</div></div>`;
+      return `<div class="metric metric-tone-${tone}"><div class="metric-content"><span class="metric-label">${label}</span><span class="metric-note">${note}</span><div class="metric-value">${numeric(val)}${unit&&val!==null?`<span class="unit">${unit}</span>`:''}</div><div class="metric-trend trend-${trend}"><span class="metric-trend-icon" aria-hidden="true">${diff===null?'–':arrowFor(diff)}</span><span>${delta}</span></div></div><div class="spark-area">${plot(series)}</div></div>`;
     }).join('');
   }
   function tasksHTML(epic) {
@@ -83,7 +83,7 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
     const domains=new Map();
     for(const e of data.epics){if(!domains.has(e.domain))domains.set(e.domain,[]);domains.get(e.domain).push(e);}
     const target=$('#portfolioGroups');
-    target.innerHTML=[...domains].map(([domain,es])=>`<div class="group" data-domain="${escapeHTML(domain)}"><div class="group-title">${escapeHTML(domain)} <span>${String(es.length).padStart(2,'0')}</span></div>${es.map(epicHTML).join('')}</div>`).join('');
+    target.innerHTML=[...domains].map(([domain,es])=>`<div class="group" data-domain="${escapeHTML(domain)}"><div class="group-title"><span class="group-name">${escapeHTML(domain)}</span><span class="group-count">${String(es.length)}</span></div>${es.map(epicHTML).join('')}</div>`).join('');
     applyPortfolioFilter();
   }
   function applyPortfolioFilter(){
