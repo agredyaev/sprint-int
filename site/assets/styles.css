@@ -1030,3 +1030,58 @@ body.data-loading .metrics{min-height:244px}
 .appearance-option{
   border-radius:var(--radius-tight);
 }
+
+
+/* Focus states: visible for keyboard users, quiet enough for the Linear-like chrome. */
+:root{
+  --focus-outline:rgba(89,101,232,.30);
+  --focus-halo:rgba(89,101,232,.075);
+}
+:root[data-theme="dark"]{
+  --focus-outline:rgba(161,169,247,.36);
+  --focus-halo:rgba(161,169,247,.09);
+}
+
+:where(button,a,input,select,summary):focus-visible{
+  outline:1px solid var(--focus-outline);
+  outline-offset:2px;
+  box-shadow:0 0 0 3px var(--focus-halo);
+}
+
+/* Composite controls own the focus treatment; suppress the native inner ring. */
+.select:focus-visible,
+.search:focus-visible{
+  outline:0;
+  box-shadow:none;
+}
+.select-shell:focus-within{
+  outline:0;
+  border-color:var(--border-control-hover);
+  box-shadow:0 0 0 1px var(--focus-outline),0 0 0 3px var(--focus-halo);
+  background:var(--surface);
+}
+.search-wrap:focus-within{
+  border-radius:var(--radius-control);
+  box-shadow:inset 0 0 0 1px var(--border-strong),0 0 0 3px var(--focus-halo);
+  background:var(--surface-soft);
+}
+
+/* Selected filters should read as state, not as another focus ring. */
+.filter.active{
+  background:var(--surface-hover);
+  border-color:transparent;
+  box-shadow:none;
+  color:var(--text-primary);
+}
+.filter:focus-visible{
+  outline:1px solid var(--focus-outline);
+  outline-offset:1px;
+  box-shadow:0 0 0 2px var(--focus-halo);
+}
+
+/* Keep pointer interaction calm; focus is only shown through :focus-visible. */
+.select-shell:hover,
+.filter:hover,
+.icon-btn:hover{
+  box-shadow:none;
+}
