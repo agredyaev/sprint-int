@@ -134,3 +134,16 @@ test('focus states stay subtle while remaining keyboard-visible', () => {
   assert.match(css, /\.search-wrap:focus-within\{[\s\S]*box-shadow:inset 0 0 0 1px var\(--border-strong\),0 0 0 3px var\(--focus-halo\)/);
   assert.match(css, /\.filter\.active\{[\s\S]*box-shadow:none/);
 });
+
+
+test('project detail card uses compact two-column hierarchy without internal separators', () => {
+  const app = read('../site/assets/app.js');
+  const css = read('../site/assets/styles.css');
+  assert.match(app, /detail-block detail-outcome/);
+  assert.match(app, /detail-block detail-risk/);
+  assert.match(css, /\.detail-grid\{[\s\S]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.detail-block,[\s\S]*border:0/);
+  assert.match(css, /\.tasks-head\{[\s\S]*border-top:1px solid var\(--hairline\)/);
+  assert.match(css, /\.jira-link\{[\s\S]*color:var\(--text-tertiary\)/);
+  assert.match(css, /@media\(max-width:760px\)[\s\S]*\.detail-grid\{[\s\S]*grid-template-columns:1fr/);
+});
