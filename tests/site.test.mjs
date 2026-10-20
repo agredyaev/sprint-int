@@ -170,3 +170,13 @@ test('header uses the DXC mark with theme-resolved contrast', () => {
   assert.match(css, /:root\[data-theme="dark"\] \.dxc-logo\{[\s\S]*filter:none/);
   assert.match(css, /\.mark\{[\s\S]*background:transparent!important/);
 });
+
+
+test('highlights render as a flat divided band instead of cards', () => {
+  const css = read('../site/assets/styles.css');
+  assert.match(css, /\.highlight-grid\{[\s\S]*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.highlight\{[\s\S]*border:0!important/);
+  assert.match(css, /\.highlight\{[\s\S]*border-radius:0!important/);
+  assert.match(css, /\.highlight\+\.highlight\{[\s\S]*border-left:1px solid var\(--hairline\)!important/);
+  assert.match(css, /@media\(max-width:900px\)[\s\S]*border-top:1px solid var\(--hairline\)!important/);
+});
