@@ -106,3 +106,20 @@ test('executive KPI grid exposes six metrics without decorative status noise', (
   assert.match(css, /border:0!important/);
   assert.match(css, /\.group-title\{/);
 });
+
+
+test('surface radius hierarchy keeps floating windows softer than controls', () => {
+  const css = read('../site/assets/styles.css');
+  const app = read('../site/assets/app.js');
+  assert.match(css, /--radius-window:16px/);
+  assert.match(css, /--radius-panel:12px/);
+  assert.match(css, /--radius-control:10px/);
+  assert.match(css, /--radius-chip:6px/);
+  assert.match(css, /\.dialog\{[\s\S]*border-radius:var\(--radius-window\)/);
+  assert.match(css, /\.select-shell,[\s\S]*border-radius:var\(--radius-control\)/);
+  assert.match(css, /\.portfolio-shell,[\s\S]*border-radius:var\(--radius-panel\)/);
+  assert.match(css, /\.status,\.hl-status\{[\s\S]*border-radius:var\(--radius-chip\)/);
+  assert.match(app, /spark-fill-\$\{id\}/);
+  assert.match(app, /stop-opacity="\.10"/);
+  assert.match(css, /\.spark-area \.curve/);
+});
