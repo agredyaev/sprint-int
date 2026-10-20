@@ -82,18 +82,22 @@ test('cold start paints sealed manifest bootstrap before DuckDB initialization',
 });
 
 
-test('executive KPI strip exposes five metrics and semantic status accents', () => {
+test('executive KPI grid exposes six metrics without decorative status noise', () => {
   const app = read('../site/assets/app.js');
   const css = read('../site/assets/styles.css');
   assert.match(app, /\['active_initiatives','Active initiatives'/);
+  assert.match(app, /\['automation_delivered','Automation delivered'/);
   assert.match(app, /metric-trend trend-\$\{trend\}/);
   assert.match(app, /\?'positive':'negative'/);
   assert.match(css, /\.metric-trend\.trend-positive/);
   assert.match(css, /\.metric-trend\.trend-negative/);
   assert.match(app, /status \$\{tone\}/);
-  assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+  assert.match(css, /grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
   assert.match(css, /\.status\.blocked/);
   assert.match(css, /\.status\.risk/);
-  assert.match(css, /\.epic\[data-status="BLOCKED"\]/);
-  assert.match(css, /body\.data-loading \.metrics\{min-height:136px\}/);
+  assert.doesNotMatch(app, /status-dot/);
+  assert.match(css, /\.metric-label::before\{display:none!important\}/);
+  assert.match(css, /\.epic\[data-status\]>\.epic-summary/);
+  assert.match(css, /box-shadow:none!important/);
+  assert.match(css, /body\.data-loading \.metrics\{min-height:272px\}/);
 });
