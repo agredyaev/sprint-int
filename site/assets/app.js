@@ -40,7 +40,7 @@ import { openSprintStore } from './data-store.js';
     },'');
   };
   function plot(values, id) {
-    if(values.length<2 || values.some(x=>x.value == null || !Number.isFinite(x.value))) return ''; 
+    if(values.length<2 || values.some(x=>x.value == null || !Number.isFinite(x.value))) return '';
     const v=values.map(x=>x.value), min=Math.min(...v), max=Math.max(...v);
     const span=Math.max(max-min,1), pts=v.map((y,i)=>[5+(230*i/(v.length-1)), 20+(max-y)/span*75]);
     const curve=smooth(pts), gid='fill-'+id;

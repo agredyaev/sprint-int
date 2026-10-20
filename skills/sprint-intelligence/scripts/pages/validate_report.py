@@ -128,4 +128,3 @@ def validate(p):
         raise ValueError('material_outcomes cannot be less than selected material highlights')
     if ranks and ranks!=set(range(1,len(ranks)+1)):raise ValueError('Highlight ranks should be contiguous from one')
     return p
-
