@@ -47,7 +47,7 @@ for f in "${expected[@]}"; do
  [[ $(head -c 4 "$f") == PAR1 && $(tail -c 4 "$f") == PAR1 ]] || { echo "Parquet magic mismatch: $f" >&2; exit 1; }
 done
 # No other static files may be published, even if accidentally committed.
-static=(site/index.html site/assets/app.js site/assets/data-store.js site/assets/styles.css)
+static=(site/index.html site/assets/app.js site/assets/data-store.js site/assets/styles.css site/assets/dxc-mark.svg)
 for required in "${static[@]}"; do
  [[ -f "$required" && ! -L "$required" ]] || { echo "Missing static file: $required" >&2; exit 1; }
 done
@@ -72,7 +72,7 @@ fi
 rm -rf -- "$output_dir"
 mkdir -p "$output_dir/assets" "$output_dir/data/sprints"
 cp site/index.html "$output_dir/"
-cp site/assets/{app.js,data-store.js,styles.css} "$output_dir/assets/"
+cp site/assets/{app.js,data-store.js,styles.css,dxc-mark.svg} "$output_dir/assets/"
 cp "$manifest" "$output_dir/data/manifest.json"
 cp "${expected[0]}" "$output_dir/data/history.parquet"
 for ((i=1; i<${#expected[@]}; i++)); do cp "${expected[i]}" "$output_dir/data/sprints/"; done
