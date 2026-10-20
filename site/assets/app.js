@@ -1,4 +1,4 @@
-/* Sprint Intelligence · read-only presentation layer. All report data comes from Parquet. */
+/* Sprint Intelligence · read-only presentation layer. First paint uses manifest bootstrap; canonical detail comes from Parquet. */
 import { loadReleaseManifest, openSprintStore } from './data-store.js';
 (() => {
   'use strict';
