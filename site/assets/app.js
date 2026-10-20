@@ -13,7 +13,7 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
   const status = code => {
     const [label,cls] = STATUS[code] || STATUS.UNKNOWN;
     const tone=cls || 'neutral';
-    return `<span class="status ${tone}"><i class="status-dot ${tone}"></i>${label}</span>`;
+    return `<span class="status ${tone}">${label}</span>`;
   };
   const arrow = '<svg class="chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m6 8 4 4 4-4" stroke="currentColor" stroke-width="1.25"/></svg>';
   const externalArrow='<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.3"/></svg>';
@@ -23,7 +23,8 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
     ['blocked_initiatives','Blocked initiatives','Delivery dependencies','','down','blocked'],
     ['at_risk_initiatives','At-risk initiatives','Milestone exposure','','down','risk'],
     ['verified_time_saved_hours','Verified time saved','Automation per sprint','h','up','delivered'],
-    ['active_initiatives','Active initiatives','Current portfolio scope','','neutral','neutral']
+    ['active_initiatives','Active initiatives','Current portfolio scope','','neutral','neutral'],
+    ['automation_delivered','Automation delivered','Confirmed this sprint','','up','delivered']
   ];
   const numeric = x => x == null ? '—' : (Number.isInteger(Number(x)) ? String(x) : Number(x).toFixed(1));
   const metricAmount = (data,k) => data.metrics?.[k] == null ? null : Number(data.metrics[k]);
@@ -102,7 +103,7 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
   }
   function renderHighlights(data){
     const es=data.epics.filter(e=>e.highlight_rank!==null&&e.highlight_rank!==undefined).sort((a,b)=>a.highlight_rank-b.highlight_rank);
-    $('.highlight-grid').innerHTML=es.length?es.map(e=>`<button type="button" class="highlight" data-open="${escapeHTML(e.jira_key)}"><div class="hl-head"><span class="hl-index">${String(e.highlight_rank).padStart(2,'0')}</span><span class="hl-status ${STATUS[e.status]?.[1]||'neutral'}"><i class="status-dot ${STATUS[e.status]?.[1]||'neutral'}"></i>${STATUS[e.status]?.[0]||'Unknown'}</span></div><h3>${escapeHTML(e.title)}</h3><p>${escapeHTML(e.delivered)}</p><div class="hl-foot"><span>${escapeHTML(e.domain)}</span>${externalArrow}</div></button>`).join(''):'<p class="section-empty">No material outcomes verified for this sprint.</p>';
+    $('.highlight-grid').innerHTML=es.length?es.map(e=>`<button type="button" class="highlight" data-open="${escapeHTML(e.jira_key)}"><div class="hl-head"><span class="hl-index">${String(e.highlight_rank).padStart(2,'0')}</span><span class="hl-status ${STATUS[e.status]?.[1]||'neutral'}">${STATUS[e.status]?.[0]||'Unknown'}</span></div><h3>${escapeHTML(e.title)}</h3><p>${escapeHTML(e.delivered)}</p><div class="hl-foot"><span>${escapeHTML(e.domain)}</span>${externalArrow}</div></button>`).join(''):'<p class="section-empty">No material outcomes verified for this sprint.</p>';
     $$('.highlight[data-open]').forEach(b=>b.addEventListener('click',()=>{
       const epic=$$('.epic').find(e=>e.dataset.key===b.dataset.open);
       if(!epic)return;
