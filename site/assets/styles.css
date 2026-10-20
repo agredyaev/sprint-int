@@ -756,3 +756,216 @@ body.data-loading .metrics{min-height:136px}
   .status,.hl-status{min-height:21px;padding:2px 6px}
   body.data-loading .metrics{min-height:660px}
 }
+
+
+/* Noise reduction pass: no decorative dots or vertical state bars. */
+.metric-label::before{display:none!important}
+.status-dot{display:none!important}
+.metric-label{gap:0}
+.status,.hl-status{padding-left:7px;padding-right:7px}
+
+/* KPI grid: 6 metrics, balanced 3 × 2 composition without vertical rules. */
+.metrics{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  column-gap:28px;
+  row-gap:0;
+}
+.metric,
+.metric:nth-child(even),
+.metric:nth-child(3n+1){
+  border-left:0!important;
+  padding:16px 0;
+}
+.metric:nth-child(-n+3){border-bottom:1px solid var(--hairline)}
+.metric:nth-child(n+4){border-bottom:0}
+.metric-content{min-height:103px}
+
+/* Remove portfolio status rails; status chips carry the state. */
+.epic[data-status]>.epic-summary,
+.epic[open][data-status]>.epic-summary{
+  box-shadow:none!important;
+}
+.epic-summary{padding-left:18px}
+
+/* Remove vertical separators from supporting blocks too. */
+.pulse-side{
+  border-left:0;
+  background:var(--surface);
+  padding-left:28px;
+}
+.pulse{
+  column-gap:36px;
+}
+.detail-block+.detail-block{
+  border-left:0;
+}
+.eff+.eff{
+  border-left:0;
+}
+.efficiency{
+  column-gap:28px;
+}
+
+/* Keep section structure via horizontal rhythm only. */
+.portfolio-shell,
+.metrics,
+.pulse,
+.efficiency{
+  border-color:var(--hairline);
+}
+
+body.data-loading .metrics{min-height:272px}
+
+@media(max-width:900px){
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:22px}
+  .metric:nth-child(-n+3){border-bottom:0}
+  .metric:nth-child(-n+4){border-bottom:1px solid var(--hairline)}
+  body.data-loading .metrics{min-height:408px}
+}
+@media(max-width:620px){
+  .metrics{grid-template-columns:1fr}
+  .metric:nth-child(-n+4){border-bottom:1px solid var(--hairline)}
+  .metric:nth-child(5){border-bottom:1px solid var(--hairline)}
+  .metric:last-child{border-bottom:0}
+  body.data-loading .metrics{min-height:816px}
+}
+
+
+/* Craft pass: typography, alignment, neutral data, quiet surfaces. */
+:root{
+  --font-display:"Inter Tight","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.hero h1,.section-title h2,.metric-value,.eff-number,.pulse-main p,.dialog-title{
+  font-family:var(--font-display);
+}
+.hero h1{
+  font-size:26px;line-height:32px;font-weight:600;letter-spacing:-.035em;
+}
+.section-title h2{
+  font-size:18px;line-height:24px;font-weight:600;letter-spacing:-.025em;
+}
+.hero p{
+  font-size:13px;line-height:20px;letter-spacing:-.006em;
+}
+.kicker,.hero-side-label,.pulse-main .label,.pulse-side .label,.detail-label{
+  font-size:11px;line-height:15px;font-weight:500;letter-spacing:0;
+}
+.metric-label{
+  font-size:12px;line-height:16px;font-weight:500;letter-spacing:-.005em;
+}
+.metric-note,.metric-trend{
+  font-size:11px;line-height:15px;
+}
+.metric-value{
+  font-size:34px;line-height:36px;font-weight:500;letter-spacing:-.045em;
+  color:var(--text-primary)!important;
+}
+.project-title,.task-title,.row-title{
+  font-size:13px;line-height:18px;font-weight:500;letter-spacing:-.012em;
+}
+.project-sub,.task-key,.row-sub,.cell-copy,.task-outcome,.row-copy{
+  line-height:18px;
+}
+
+/* Semantic color belongs to state and delta, not the primary datum. */
+.metric-tone-blocked .metric-value,
+.metric-tone-risk .metric-value{color:var(--text-primary)!important}
+.metric-trend.trend-positive{color:var(--status-green)}
+.metric-trend.trend-negative{color:var(--status-red)}
+.metric-trend.trend-neutral{color:var(--text-tertiary)}
+
+/* Sparklines are subordinate: no fill, no semantic recoloring. */
+.spark-area{opacity:.72;width:27%;max-width:84px;height:30px}
+.spark-area .curve,
+.metric-tone-blocked .spark-area .curve,
+.metric-tone-risk .spark-area .curve,
+.metric-tone-delivered .spark-area .curve{
+  stroke:var(--text-decorative)!important;
+  stroke-width:1.15;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Status is a quiet text tint, not a badge component. */
+.status,.hl-status{
+  min-height:20px;
+  padding:2px 6px;
+  border:0!important;
+  border-radius:5px;
+  font-size:11px;
+  line-height:16px;
+  font-weight:500;
+}
+.status.delivered,.hl-status.delivered{color:var(--status-green);background:var(--status-green-bg)}
+.status.progressing,.hl-status.progressing{color:var(--status-blue);background:var(--status-blue-bg)}
+.status.blocked,.hl-status.blocked{color:var(--status-red);background:var(--status-red-bg)}
+.status.risk,.hl-status.risk{color:var(--status-amber);background:var(--status-amber-bg)}
+.status.neutral,.hl-status.neutral{color:var(--text-tertiary);background:var(--surface-soft)}
+
+/* No dot language anywhere in content chrome. */
+.sync{display:none}
+.attention{gap:0}
+.attention-dot,.status-dot,.sync-dot{display:none!important}
+
+/* Group headers are hierarchy, not table bands. */
+.group-title{
+  height:auto;
+  padding:17px 18px 8px;
+  border-bottom:0;
+  background:transparent!important;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  color:var(--text-secondary);
+  font-size:11.5px;
+  line-height:16px;
+}
+.group-name{font-weight:500;color:var(--text-secondary)}
+.group-count{font-weight:400;color:var(--text-decorative);font-variant-numeric:tabular-nums}
+.group+.group .group-title{border-top:1px solid var(--hairline);margin-top:4px}
+
+/* Rows and section rhythm: compact, aligned, no unnecessary chrome. */
+.epic-summary{
+  min-height:56px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+.portfolio-head{
+  height:30px;
+  background:transparent;
+  border-bottom:1px solid var(--hairline);
+  color:var(--text-decorative);
+}
+.toolbar{height:44px}
+.section+.section{margin-top:44px}
+.section-head{margin-bottom:14px}
+.highlight-grid{gap:24px}
+.highlight{min-height:126px}
+.pulse-main,.pulse-side{padding-top:18px;padding-bottom:19px}
+.pulse-side{padding-left:0}
+.pulse{grid-template-columns:minmax(0,1.62fr) minmax(260px,.68fr);column-gap:48px}
+.eff{padding-top:15px;padding-bottom:15px}
+
+/* KPI geometry: balanced 3x2, aligned to common baselines. */
+.metrics{margin-top:28px;column-gap:32px}
+.metric,
+.metric:nth-child(even),
+.metric:nth-child(3n+1){
+  min-height:122px;
+  padding-top:14px;
+  padding-bottom:14px;
+}
+.metric-content{min-height:94px}
+.metric-value{margin-top:auto}
+.metric-trend{margin-top:7px}
+body.data-loading .metrics{min-height:244px}
+
+@media(max-width:900px){
+  body.data-loading .metrics{min-height:366px}
+}
+@media(max-width:620px){
+  .hero h1{font-size:24px;line-height:30px}
+  .metric-value{font-size:32px;line-height:34px}
+  body.data-loading .metrics{min-height:732px}
+}
