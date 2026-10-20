@@ -756,3 +756,76 @@ body.data-loading .metrics{min-height:136px}
   .status,.hl-status{min-height:21px;padding:2px 6px}
   body.data-loading .metrics{min-height:660px}
 }
+
+
+/* Noise reduction pass: no decorative dots or vertical state bars. */
+.metric-label::before{display:none!important}
+.status-dot{display:none!important}
+.metric-label{gap:0}
+.status,.hl-status{padding-left:7px;padding-right:7px}
+
+/* KPI grid: 6 metrics, balanced 3 × 2 composition without vertical rules. */
+.metrics{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  column-gap:28px;
+  row-gap:0;
+}
+.metric,
+.metric:nth-child(even),
+.metric:nth-child(3n+1){
+  border-left:0!important;
+  padding:16px 0;
+}
+.metric:nth-child(-n+3){border-bottom:1px solid var(--hairline)}
+.metric:nth-child(n+4){border-bottom:0}
+.metric-content{min-height:103px}
+
+/* Remove portfolio status rails; status chips carry the state. */
+.epic[data-status]>.epic-summary,
+.epic[open][data-status]>.epic-summary{
+  box-shadow:none!important;
+}
+.epic-summary{padding-left:18px}
+
+/* Remove vertical separators from supporting blocks too. */
+.pulse-side{
+  border-left:0;
+  background:var(--surface);
+  padding-left:28px;
+}
+.pulse{
+  column-gap:36px;
+}
+.detail-block+.detail-block{
+  border-left:0;
+}
+.eff+.eff{
+  border-left:0;
+}
+.efficiency{
+  column-gap:28px;
+}
+
+/* Keep section structure via horizontal rhythm only. */
+.portfolio-shell,
+.metrics,
+.pulse,
+.efficiency{
+  border-color:var(--hairline);
+}
+
+body.data-loading .metrics{min-height:272px}
+
+@media(max-width:900px){
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:22px}
+  .metric:nth-child(-n+3){border-bottom:0}
+  .metric:nth-child(-n+4){border-bottom:1px solid var(--hairline)}
+  body.data-loading .metrics{min-height:408px}
+}
+@media(max-width:620px){
+  .metrics{grid-template-columns:1fr}
+  .metric:nth-child(-n+4){border-bottom:1px solid var(--hairline)}
+  .metric:nth-child(5){border-bottom:1px solid var(--hairline)}
+  .metric:last-child{border-bottom:0}
+  body.data-loading .metrics{min-height:816px}
+}
