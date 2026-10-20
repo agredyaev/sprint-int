@@ -134,3 +134,39 @@ test('focus states stay subtle while remaining keyboard-visible', () => {
   assert.match(css, /\.search-wrap:focus-within\{[\s\S]*box-shadow:inset 0 0 0 1px var\(--border-strong\),0 0 0 3px var\(--focus-halo\)/);
   assert.match(css, /\.filter\.active\{[\s\S]*box-shadow:none/);
 });
+
+
+test('project detail card uses compact two-column hierarchy without internal separators', () => {
+  const app = read('../site/assets/app.js');
+  const css = read('../site/assets/styles.css');
+  assert.match(app, /detail-block detail-outcome/);
+  assert.match(app, /detail-block detail-risk/);
+  assert.match(css, /\.detail-grid\{[\s\S]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.detail-block,[\s\S]*border:0/);
+  assert.match(css, /\.tasks-head\{[\s\S]*border-top:1px solid var\(--hairline\)/);
+  assert.match(css, /\.jira-link\{[\s\S]*color:var\(--text-tertiary\)/);
+  assert.match(css, /@media\(max-width:760px\)[\s\S]*\.detail-grid\{[\s\S]*grid-template-columns:1fr/);
+});
+
+
+test('second craft pass keeps body dense and visually quiet', () => {
+  const css = read('../site/assets/styles.css');
+  assert.match(css, /\.section\+\.section\{margin-top:40px\}/);
+  assert.match(css, /\.highlight\{[\s\S]*border:1px solid transparent!important/);
+  assert.match(css, /\.pulse-main p\{[\s\S]*font-size:16px/);
+  assert.match(css, /\.dep-row\{[\s\S]*padding:12px 0/);
+  assert.match(css, /\.eff-number\{[\s\S]*font-size:22px/);
+  assert.match(css, /\.dialog\{width:min\(560px,100%\)\}/);
+  assert.match(css, /\.audit-row\{[\s\S]*min-height:50px/);
+  assert.match(css, /\.audit-icon\{[\s\S]*border:0!important/);
+});
+
+
+test('header uses the DXC mark with theme-resolved contrast', () => {
+  const html = read('../site/index.html');
+  const css = read('../site/assets/styles.css');
+  assert.match(html, /class="dxc-logo" src="\.\/assets\/dxc-mark\.svg"/);
+  assert.match(css, /\.dxc-logo\{[\s\S]*filter:brightness\(0\) saturate\(100%\)/);
+  assert.match(css, /:root\[data-theme="dark"\] \.dxc-logo\{[\s\S]*filter:none/);
+  assert.match(css, /\.mark\{[\s\S]*background:transparent!important/);
+});
