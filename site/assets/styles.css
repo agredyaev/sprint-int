@@ -1440,3 +1440,50 @@ body.data-loading .metrics{min-height:244px}
   .mark{width:42px}
   .dxc-logo{width:40px}
 }
+
+
+/* Highlights — flat band, not cards. */
+.highlight-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0!important;
+  border-top:1px solid var(--hairline);
+  border-bottom:1px solid var(--hairline);
+}
+.highlight{
+  min-height:126px;
+  padding:16px 20px 15px;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.highlight+.highlight{
+  border-left:1px solid var(--hairline)!important;
+}
+.highlight:hover{
+  background:var(--surface-soft)!important;
+  border-color:transparent!important;
+}
+.hl-head{min-height:20px}
+.highlight h3{margin-top:9px}
+.highlight p{margin-top:5px}
+.hl-foot{
+  margin-top:16px;
+  padding-top:0;
+}
+.highlight:hover .hl-foot svg{transform:translateX(2px)}
+
+@media(max-width:900px){
+  .highlight-grid{
+    grid-template-columns:1fr;
+  }
+  .highlight{
+    min-height:auto;
+    padding:15px 0;
+  }
+  .highlight+.highlight{
+    border-left:0!important;
+    border-top:1px solid var(--hairline)!important;
+  }
+}
