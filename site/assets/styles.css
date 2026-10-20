@@ -1406,3 +1406,37 @@ body.data-loading .metrics{min-height:244px}
   .audit-row{grid-template-columns:16px 1fr}
   .audit-copy{grid-column:2}
 }
+
+
+/* DXC brand mark: one source asset, theme-resolved in CSS. */
+.brand{min-width:48px}
+.mark{
+  width:46px;
+  height:18px;
+  border:0!important;
+  border-radius:0;
+  background:transparent!important;
+  box-shadow:none!important;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  overflow:visible;
+}
+.dxc-logo{
+  display:block;
+  width:44px;
+  height:auto;
+  opacity:.94;
+  filter:brightness(0) saturate(100%);
+  transition:opacity var(--motion-fast);
+}
+.brand:hover .dxc-logo{opacity:1}
+:root[data-theme="dark"] .dxc-logo{
+  filter:none;
+  opacity:.96;
+}
+@media(max-width:660px){
+  .brand{min-width:43px}
+  .mark{width:42px}
+  .dxc-logo{width:40px}
+}
