@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#ffffff" name="theme-color"/>
+<script>
+// Set the resolved palette before the first paint, even when the HTML opens locally.
+(function(){
+  var pref='system';
+  try {var v=localStorage.getItem('sprint-intelligence-theme');if(['light','dark','system'].includes(v))pref=v;} catch(e){}
+  var resolved=pref==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):pref;
+  document.documentElement.dataset.theme=resolved;
+  document.documentElement.dataset.themePreference=pref;
+  document.querySelector('meta[name="theme-color"]').content=resolved==='dark'?'#08090a':'#ffffff';
+})();
+</script>
+<title>Sprint Intelligence — Executive Review</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+
+<link href="./assets/styles.css" rel="stylesheet"/></head>
+<body>
+<header class="chrome">
+<div class="chrome-inner">
+<a aria-label="Sprint Intelligence home" class="brand" href="#overview">
+<span class="mark"><svg fill="none" viewbox="0 0 20 20"><path d="M5 13.5 9 6.5l2.2 3.8L15 4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg></span>
+</a>
+<nav aria-label="Primary navigation" class="nav">
+<a class="active" href="#overview">Overview</a>
+<a href="#highlights">Highlights</a>
+<a href="#portfolio">Portfolio</a>
+<a href="#dependencies">Dependencies</a>
+<a href="#efficiency">Efficiency</a>
+</nav>
+<div class="chrome-actions">
+<span aria-label="Data updated 16 Oct 2026, 16:42" class="sync" title="Data updated 16 Oct 2026, 16:42"><span class="sync-dot"></span></span>
+<div class="select-shell"><select aria-label="Select sprint" class="select" id="sprintSelect" title="Select sprint"><option value="26.21">Sprint 26.21</option><option value="26.20">Sprint 26.20</option><option value="26.19">Sprint 26.19</option></select><svg aria-hidden="true" class="select-chevron" fill="none" viewbox="0 0 16 16"><path d="m4.5 6.25 3.5 3.5 3.5-3.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.45"></path></svg></div>
+<div class="appearance-control">
+<button aria-controls="appearance-menu" aria-expanded="false" aria-haspopup="menu" aria-label="Appearance settings" class="icon-btn appearance-trigger" id="appearance-toggle" title="Appearance" type="button">
+<svg aria-hidden="true" fill="none" viewbox="0 0 24 24"><g class="appearance-sun"><circle cx="12" cy="12" r="3.7"></circle><path d="M12 2.5v2M12 19.5v2M21.5 12h-2M4.5 12h-2M18.7 5.3l-1.45 1.45M6.75 17.25 5.3 18.7M18.7 18.7l-1.45-1.45M6.75 6.75 5.3 5.3"></path></g><g class="appearance-moon"><path d="M20.2 15.6A8.7 8.7 0 0 1 8.4 3.8 8.75 8.75 0 1 0 20.2 15.6Z"></path></g></svg>
+</button>
+<div aria-label="Appearance" class="appearance-menu" hidden="" id="appearance-menu" role="menu">
+<div class="appearance-menu-heading">Appearance</div>
+<button aria-checked="false" class="appearance-option" data-appearance="light" role="menuitemradio" type="button"><svg aria-hidden="true" class="appearance-option-icon" fill="none" viewbox="0 0 20 20"><circle cx="10" cy="10" r="3.2"></circle><path d="M10 1.7v2M10 16.3v2M18.3 10h-2M3.7 10h-2M15.9 4.1l-1.4 1.4M5.5 14.5l-1.4 1.4M15.9 15.9l-1.4-1.4M5.5 5.5 4.1 4.1"></path></svg><span>Light</span><span aria-hidden="true" class="appearance-check">✓</span></button>
+<button aria-checked="false" class="appearance-option" data-appearance="dark" role="menuitemradio" type="button"><svg aria-hidden="true" class="appearance-option-icon" fill="none" viewbox="0 0 20 20"><path d="M17.1 12.9A7.5 7.5 0 0 1 7.1 2.9 7.5 7.5 0 1 0 17.1 12.9Z"></path></svg><span>Dark</span><span aria-hidden="true" class="appearance-check">✓</span></button>
+<button aria-checked="false" class="appearance-option" data-appearance="system" role="menuitemradio" type="button"><svg aria-hidden="true" class="appearance-option-icon" fill="none" viewbox="0 0 20 20"><rect height="10" rx="1.2" width="14" x="3" y="4"></rect><path d="M7 17h6M10 14v3"></path></svg><span>System</span><span aria-hidden="true" class="appearance-check">✓</span></button>
+</div>
+</div>
+<button aria-label="Print" class="icon-btn" onclick="window.print()"><svg fill="none" viewbox="0 0 20 20"><path d="M5.5 7V3.8h9V7M5.2 14.5H3.8V8.7h12.4v5.8h-1.4M5.5 11.7h9v4.5h-9z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.25"></path></svg></button>
+</div>
+</div>
+</header>
+<div id="loadError" class="error-panel" hidden role="alert"></div><main>
+<section class="section" id="overview">
+<div class="hero">
+<div>
+<div class="kicker"></div>
+<h1>Portfolio review</h1>
+<p></p>
+</div>
+<aside class="hero-side">
+<div class="hero-side-label">Review window</div>
+<div class="hero-side-value"></div>
+<div class="hero-side-meta"></div>
+</aside>
+</div>
+<div aria-label="Four sprint trend summary" class="metrics"></div>
+</section>
+<section class="section">
+<div class="section-head"><div class="section-title"><div class="kicker">Executive pulse</div><h2>What changed</h2></div></div>
+<div class="pulse">
+<div class="pulse-main">
+<div class="label">Sprint readout</div>
+<p></p>
+</div>
+<div class="pulse-side">
+<div class="label">Needs attention</div>
+<div class="attention"><span class="attention-dot"></span><p></p></div>
+<div class="attention-meta"></div>
+</div>
+</div>
+</section>
+<section class="section" id="highlights">
+<div class="section-head"><div class="section-title"><div class="kicker">Priority outcomes</div><h2>Highlights</h2><p>Only material customer or strategic outcomes. Operational volume is excluded.</p></div><a class="section-link" href="#portfolio">View portfolio →</a></div>
+<div class="highlight-grid"></div>
+</section>
+<section class="section" id="portfolio">
+<div class="section-head"><div class="section-title"><div class="kicker">Initiative portfolio</div><h2>Status by project</h2><p>Reporting-owned initiatives only. DWH work appears as a dependency where it affects delivery.</p></div></div>
+<div class="portfolio-shell">
+<div class="toolbar">
+<div class="search-wrap"><svg fill="none" viewbox="0 0 20 20"><circle cx="8.5" cy="8.5" r="4.7" stroke="currentColor" stroke-width="1.2"></circle><path d="m12 12 4 4" stroke="currentColor" stroke-linecap="round" stroke-width="1.2"></path></svg><input class="search" id="search" placeholder="Search initiatives or Jira keys…"/></div>
+<button class="filter active" data-filter="ALL">All</button><button class="filter" data-filter="ATTENTION">Needs attention</button><button class="filter" data-filter="DELIVERED">Delivered</button><span class="toolbar-divider"></span>
+</div>
+<div class="portfolio-head"><div>Project</div><div>Status</div><div>Delivered this sprint</div><div>Planned next</div><div></div></div>
+
+
+
+
+<div id="portfolioGroups"></div><div class="empty hidden" id="noResults">No initiatives match the current view.</div>
+</div>
+</section>
+<section class="section" id="dependencies">
+<div class="section-head"><div class="section-title"><div class="kicker">Cross-team exposure</div><h2>Dependencies</h2><p>DWH delivery is treated as an external dependency, never as Reporting output.</p></div></div>
+<div class="dependency-list"></div>
+</section>
+<section class="section" id="efficiency">
+<div class="section-head"><div class="section-title"><div class="kicker">Operational efficiency</div><h2>Automation &amp; AI</h2><p>Tracked separately from product delivery.</p></div></div>
+<div class="efficiency"></div>
+<div class="audit-bar">
+<div class="audit-state"><span class="audit-check"><svg fill="none" viewbox="0 0 20 20"><path d="m5.5 10.2 2.7 2.7 6.3-6.4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></span><span></span></div>
+<button class="audit-btn" id="auditOpen">View audit details →</button>
+</div>
+</section>
+<footer class="footer">Sprint Intelligence · Derived reporting only · Jira is the source of truth</footer>
+</main>
+<div aria-hidden="true" class="dialog-backdrop" id="auditDialog">
+<div aria-labelledby="auditTitle" aria-modal="true" class="dialog" role="dialog">
+<div class="dialog-head"><div class="dialog-title" id="auditTitle">Publication audit</div><button aria-label="Close" class="dialog-close" id="auditClose"><svg fill="none" viewbox="0 0 20 20"><path d="m6 6 8 8M14 6l-8 8" stroke="currentColor" stroke-linecap="round" stroke-width="1.35"></path></svg></button></div>
+<div class="audit-list"></div>
+<div class="dialog-foot"></div>
+</div>
+</div>
+
+<script type="module" src="./assets/app.js"></script></body>
+</html>
