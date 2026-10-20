@@ -130,6 +130,7 @@ import { openSprintStore } from './data-store.js';
     $('#sprintSelect').value=s.sprint_id;
     renderMetric(data);renderHighlights(data);renderPortfolio(data);renderDependencies(data);renderEfficiency(data);renderAudit(data);
     $('footer').textContent=(s.is_demo?'Synthetic demo data · ':'')+'Jira remains the source of truth · No raw Jira descriptions stored';
+    document.body.classList.remove('data-loading');
   }
   async function selectSprint(id){
     const request=++sprintRequest;
@@ -161,6 +162,7 @@ import { openSprintStore } from './data-store.js';
     } catch(err) {
       console.error(err);$('#loadError').hidden=false;
       $('#loadError').textContent='Unable to initialize DuckDB-Wasm or load Parquet. Use HTTP(S) and allow the pinned CDN assets. '+err.message;
+      document.body.classList.remove('data-loading');
     }
   }
   $('#search').addEventListener('input',applyPortfolioFilter);

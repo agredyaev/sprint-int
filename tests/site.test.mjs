@@ -51,3 +51,17 @@ test('browser verifies release hashes and index membership before exposing a spr
   assert.match(adapter, /History index does not match release manifest sprint IDs/);
   assert.match(adapter, /Release file checksum mismatch/);
 });
+
+
+test('startup shell reserves dynamic layout until first sprint render', () => {
+  const html = read('../site/index.html');
+  const css = read('../site/assets/styles.css');
+  const app = read('../site/assets/app.js');
+  assert.match(html, /<body class="data-loading">/);
+  assert.match(html, /assets\/app\.js" rel="modulepreload"/);
+  assert.match(html, /assets\/data-store\.js" rel="modulepreload"/);
+  assert.match(html, /display=optional/);
+  assert.match(css, /body\.data-loading \.metrics\{min-height:274px\}/);
+  assert.match(css, /body\.data-loading \.portfolio-shell\{min-height:499px\}/);
+  assert.match(app, /document\.body\.classList\.remove\('data-loading'\)/);
+});
