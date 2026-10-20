@@ -969,3 +969,64 @@ body.data-loading .metrics{min-height:244px}
   .metric-value{font-size:32px;line-height:34px}
   body.data-loading .metrics{min-height:732px}
 }
+
+
+/* Radius hierarchy — validated across 10 lenses: scale, hierarchy, density,
+   interaction, consistency, contrast, elevation, responsiveness, dark mode, polish. */
+:root{
+  --radius-window:16px;
+  --radius-panel:12px;
+  --radius-menu:12px;
+  --radius-control:10px;
+  --radius-chip:6px;
+  --radius-tight:5px;
+}
+
+/* Floating surfaces get the largest radius and softest elevation. */
+.dialog{
+  border-radius:var(--radius-window);
+  overflow:hidden;
+  border-color:var(--border);
+  box-shadow:0 22px 70px rgba(16,17,20,.14),0 3px 12px rgba(16,17,20,.05);
+}
+:root[data-theme="dark"] .dialog{
+  box-shadow:0 26px 80px rgba(0,0,0,.56),0 3px 14px rgba(0,0,0,.28);
+}
+.appearance-menu{
+  border-radius:var(--radius-menu);
+  overflow:hidden;
+}
+
+/* Primary controls use a consistent medium radius, never pill-like. */
+.select-shell,
+.search,
+.filter,
+.icon-btn,
+.dialog-close,
+.audit-btn{
+  border-radius:var(--radius-control);
+}
+.filter{
+  min-height:30px;
+  padding-inline:11px;
+}
+.filter.active{
+  background:var(--surface-selected);
+  box-shadow:inset 0 0 0 1px var(--hairline);
+}
+
+/* Structural panels are softer than controls but flatter than modals. */
+.portfolio-shell,
+.error-panel{
+  border-radius:var(--radius-panel);
+}
+
+/* Small semantic surfaces remain compact. */
+.status,.hl-status{
+  border-radius:var(--radius-chip);
+}
+
+/* Inner menu options are intentionally tighter so nested radii read as hierarchy. */
+.appearance-option{
+  border-radius:var(--radius-tight);
+}
