@@ -552,3 +552,41 @@ body{background:var(--canvas);color:var(--text-primary)}
 .section-empty{padding:28px 12px;color:var(--text-tertiary);font-size:12px}
 .error-panel{border:1px solid var(--border-strong);background:var(--surface-soft);border-radius:9px;padding:15px;margin:24px 0;color:var(--text-secondary)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* Initial data shell: reserve above-the-fold geometry until Parquet hydration completes. */
+body.data-loading .hero p{min-height:42px}
+body.data-loading .hero-side-value{min-height:20px}
+body.data-loading .hero-side-meta{min-height:18px}
+body.data-loading .metrics{min-height:274px}
+body.data-loading .pulse{min-height:95px}
+body.data-loading .highlight-grid{min-height:136px}
+body.data-loading .portfolio-shell{min-height:499px}
+body.data-loading .dependency-list{min-height:112px}
+body.data-loading .efficiency{min-height:91px}
+body.data-loading .audit-state>span:last-child{display:inline-block;min-width:210px;min-height:16px}
+body.data-loading .hero p,
+body.data-loading .hero-side-value,
+body.data-loading .hero-side-meta,
+body.data-loading .metrics,
+body.data-loading .pulse,
+body.data-loading .highlight-grid,
+body.data-loading .portfolio-shell,
+body.data-loading .dependency-list,
+body.data-loading .efficiency,
+body.data-loading .audit-state>span:last-child{overflow:hidden}
+@media(max-width:1050px){
+  body.data-loading .pulse{min-height:150px}
+  body.data-loading .highlight-grid{min-height:458px}
+}
+@media(max-width:660px){
+  body.data-loading .hero p{min-height:63px}
+  body.data-loading .hero-side-value{min-height:38px}
+  body.data-loading .hero-side-meta{min-height:35px}
+  body.data-loading .metrics{min-height:274px}
+  body.data-loading .pulse{min-height:178px}
+  body.data-loading .highlight-grid{min-height:458px}
+  body.data-loading .portfolio-shell{min-height:475px}
+  body.data-loading .dependency-list{min-height:220px}
+  body.data-loading .efficiency{min-height:182px}
+}
