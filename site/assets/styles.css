@@ -1085,3 +1085,110 @@ body.data-loading .metrics{min-height:244px}
 .icon-btn:hover{
   box-shadow:none;
 }
+
+
+/* Project detail card — Linear-like density: hierarchy through spacing, not separators. */
+.epic-detail{
+  background:var(--surface);
+  padding:18px 18px 14px;
+}
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  column-gap:36px;
+  row-gap:22px;
+  border-bottom:0;
+  padding-bottom:0;
+}
+.detail-block,
+.detail-block+.detail-block{
+  min-width:0;
+  padding:0;
+  border:0;
+}
+.detail-label{
+  margin:0;
+  color:var(--text-tertiary);
+  font-size:10.5px;
+  line-height:15px;
+  font-weight:500;
+  letter-spacing:0;
+}
+.detail-value{
+  margin-top:6px;
+  color:var(--text-secondary);
+  font-size:12.5px;
+  line-height:19px;
+  letter-spacing:-.006em;
+}
+.detail-outcome .detail-value{
+  color:var(--text-primary);
+}
+.epic[data-status="BLOCKED"] .detail-risk .detail-label{color:var(--status-red)}
+.epic[data-status="AT_RISK"] .detail-risk .detail-label{color:var(--status-amber)}
+.detail-risk .detail-value{color:var(--text-secondary)}
+
+/* Work items are a distinct lower layer, separated once. */
+.tasks-head{
+  height:auto;
+  min-height:45px;
+  margin-top:22px;
+  padding:13px 0 10px;
+  align-items:center;
+  border-top:1px solid var(--hairline);
+}
+.tasks-head strong{
+  font-size:11.5px;
+  line-height:16px;
+  font-weight:500;
+  letter-spacing:-.004em;
+}
+.tasks{border-top:0}
+.task-summary{
+  min-height:52px;
+  padding:8px 4px;
+}
+.task-title{
+  font-size:12.5px;
+  line-height:18px;
+  font-weight:500;
+  letter-spacing:-.01em;
+}
+.task-key{
+  margin-top:1px;
+  font-size:10.5px;
+  line-height:15px;
+}
+.task-outcome{
+  font-size:11.5px;
+  line-height:17px;
+  color:var(--text-tertiary);
+}
+.jira-link{
+  color:var(--text-tertiary);
+  font-weight:500;
+}
+.jira-link:hover{
+  color:var(--accent);
+  text-decoration:none;
+}
+.task-summary:hover{background:var(--surface-hover)}
+
+/* Open state should feel like one surface, not a nested form. */
+.epic[open]>.epic-summary{
+  background:var(--surface-hover);
+  border-bottom:1px solid var(--hairline);
+}
+.epic[open] .epic-detail{
+  border-top:0;
+}
+
+@media(max-width:760px){
+  .detail-grid{
+    grid-template-columns:1fr;
+    row-gap:18px;
+  }
+  .tasks-head{
+    margin-top:18px;
+  }
+}
