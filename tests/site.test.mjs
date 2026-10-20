@@ -123,3 +123,14 @@ test('surface radius hierarchy keeps floating windows softer than controls', () 
   assert.match(app, /stop-opacity="\.10"/);
   assert.match(css, /\.spark-area \.curve/);
 });
+
+
+test('focus states stay subtle while remaining keyboard-visible', () => {
+  const css = read('../site/assets/styles.css');
+  assert.match(css, /--focus-outline:rgba\(89,101,232,\.30\)/);
+  assert.match(css, /--focus-halo:rgba\(89,101,232,\.075\)/);
+  assert.match(css, /\.select:focus-visible,[\s\S]*outline:0/);
+  assert.match(css, /\.select-shell:focus-within\{[\s\S]*box-shadow:0 0 0 1px var\(--focus-outline\),0 0 0 3px var\(--focus-halo\)/);
+  assert.match(css, /\.search-wrap:focus-within\{[\s\S]*box-shadow:inset 0 0 0 1px var\(--border-strong\),0 0 0 3px var\(--focus-halo\)/);
+  assert.match(css, /\.filter\.active\{[\s\S]*box-shadow:none/);
+});
