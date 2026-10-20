@@ -1,0 +1,53 @@
+{
+  "format": "sprint-intelligence-parquet",
+  "history": {
+    "path": "history.parquet",
+    "sha256": "9b9d5b28c24d42a475a59951277b69007ec441c61ac14b155d040755ae2ba5b8",
+    "size": 2851
+  },
+  "manifest_version": 1,
+  "sprints": [
+    {
+      "id": "26.16",
+      "path": "sprints/26.16.parquet",
+      "schema_version": 2,
+      "sha256": "81a03dc60cff2424637bb7038fc32e93fb0a05539d8b887152bc5c695efacade",
+      "size": 5634
+    },
+    {
+      "id": "26.17",
+      "path": "sprints/26.17.parquet",
+      "schema_version": 2,
+      "sha256": "b0331620432cd49c1b2fa35560a1e95294b422373c00745c6c138046c0734955",
+      "size": 5683
+    },
+    {
+      "id": "26.18",
+      "path": "sprints/26.18.parquet",
+      "schema_version": 2,
+      "sha256": "5a13a977fd4ad6b09c42ea3ef66f2b335a5adc88e74ce2926e3281b0b94cc273",
+      "size": 5833
+    },
+    {
+      "id": "26.19",
+      "path": "sprints/26.19.parquet",
+      "schema_version": 2,
+      "sha256": "c840d407e4c41694ebf5974d01905aa678b9917e33bde90d0f2b3dfe177c1ea4",
+      "size": 5827
+    },
+    {
+      "id": "26.20",
+      "path": "sprints/26.20.parquet",
+      "schema_version": 2,
+      "sha256": "859571c1baf2cf05cc3e2edb6f7550111329a6aca95e30fd8917efdf2ca4663f",
+      "size": 5824
+    },
+    {
+      "id": "26.21",
+      "path": "sprints/26.21.parquet",
+      "schema_version": 2,
+      "sha256": "240b73747683802bc67d695dfbe1b9741d7a36f9fad74e50d9839fe7bfc75e03",
+      "size": 5806
+    }
+  ]
+}
