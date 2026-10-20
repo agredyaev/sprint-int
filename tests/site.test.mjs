@@ -99,5 +99,10 @@ test('executive KPI grid exposes six metrics without decorative status noise', (
   assert.match(css, /\.metric-label::before\{display:none!important\}/);
   assert.match(css, /\.epic\[data-status\]>\.epic-summary/);
   assert.match(css, /box-shadow:none!important/);
-  assert.match(css, /body\.data-loading \.metrics\{min-height:272px\}/);
+  assert.match(css, /body\.data-loading \.metrics\{min-height:244px\}/);
+  assert.match(css, /font-family:var\(--font-display\)/);
+  assert.match(css, /color:var\(--text-primary\)!important/);
+  assert.match(css, /\.spark-area \.curve/);
+  assert.match(css, /border:0!important/);
+  assert.match(css, /\.group-title\{/);
 });
