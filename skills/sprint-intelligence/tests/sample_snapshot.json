@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "project_keys": [
+    "OPS"
+  ],
+  "site_url": "https://example.atlassian.net",
+  "board_id": 42,
+  "sprint": {
+    "id": 101,
+    "name": "Sprint 18",
+    "start": "2026-10-05T09:00:00+02:00",
+    "end": "2026-10-16T18:00:00+02:00",
+    "publication_id": "26.21"
+  },
+  "as_of": "2026-10-15T18:00:00+02:00",
+  "completed_statuses": [
+    "Done"
+  ],
+  "extraction": {
+    "query": "sprint = 101",
+    "complete": true,
+    "expected_issues": 10,
+    "pages": 2,
+    "changelog_complete": true
+  },
+  "baseline": {
+    "available": false,
+    "source": null
+  },
+  "reporting_ownership": {
+    "verified": true,
+    "rule": "Test fixture: explicit Reporting issue owner tagging",
+    "provider_member_count": 10,
+    "unresolved_issue_keys": [],
+    "provider_issue_keys": [
+      "OPS-100",
+      "OPS-101",
+      "OPS-102",
+      "OPS-200",
+      "OPS-201",
+      "OPS-202",
+      "OPS-301",
+      "OPS-400",
+      "OPS-401",
+      "OPS-402"
+    ],
+    "excluded_other_team_issues": []
+  },
+  "run_id": "demo-sprint-101-2026-10-15"
+}
