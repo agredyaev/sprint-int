@@ -12,16 +12,18 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
   };
   const status = code => {
     const [label,cls] = STATUS[code] || STATUS.UNKNOWN;
-    return `<span class="status"><i class="status-dot ${cls}"></i>${label}</span>`;
+    const tone=cls || 'neutral';
+    return `<span class="status ${tone}"><i class="status-dot ${tone}"></i>${label}</span>`;
   };
   const arrow = '<svg class="chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m6 8 4 4 4-4" stroke="currentColor" stroke-width="1.25"/></svg>';
   const externalArrow='<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.3"/></svg>';
   let current = null, index=[], store=null, filter='ALL', requestedSection=null, scrollFrame=0, sprintRequest=0;
   const metrics = [
-    ['material_outcomes','Material outcomes','Customer or strategic',''],
-    ['blocked_initiatives','Blocked initiatives','Delivery dependencies',''],
-    ['at_risk_initiatives','At-risk initiatives','Milestone exposure',''],
-    ['verified_time_saved_hours','Verified time saved','Automation per sprint','h']
+    ['material_outcomes','Material outcomes','Customer or strategic','','up','accent'],
+    ['blocked_initiatives','Blocked initiatives','Delivery dependencies','','down','blocked'],
+    ['at_risk_initiatives','At-risk initiatives','Milestone exposure','','down','risk'],
+    ['verified_time_saved_hours','Verified time saved','Automation per sprint','h','up','delivered'],
+    ['active_initiatives','Active initiatives','Current portfolio scope','','neutral','neutral']
   ];
   const numeric = x => x == null ? '—' : (Number.isInteger(Number(x)) ? String(x) : Number(x).toFixed(1));
   const metricAmount = (data,k) => data.metrics?.[k] == null ? null : Number(data.metrics[k]);
@@ -60,11 +62,12 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
   }
   const arrowFor = diff => diff>0?'↗':diff<0?'↘':'–';
   function renderMetric(data){
-    $('.metrics').innerHTML=metrics.map(([key,label,note,unit],i)=>{
+    $('.metrics').innerHTML=metrics.map(([key,label,note,unit,better,tone],i)=>{
       const series=historyFor(key,data.sprint.sprint_id), previous=series.length>1?series[series.length-2].value:null;
       const val=metricAmount(data,key), diff=(previous===null || val===null)?null:val-previous;
       const delta=diff===null?(val===null?'Not measured':'No comparable prior value'):diff===0?'No change from previous sprint':`${diff>0?'+':'−'}${numeric(Math.abs(diff))}${unit} from previous sprint`;
-      return `<div class="metric"><div class="metric-content"><span class="metric-label">${label}</span><span class="metric-note">${note}</span><div class="metric-value">${numeric(val)}${unit&&val!==null?`<span class="unit">${unit}</span>`:''}</div><div class="metric-trend"><span aria-hidden="true">${diff===null?'–':arrowFor(diff)}</span><span>${delta}</span></div></div><div class="spark-area">${plot(series,`m${i}`)}</div></div>`;
+      const trend=diff===null||diff===0||better==='neutral'?'neutral':((diff>0)===(better==='up')?'positive':'negative');
+      return `<div class="metric metric-tone-${tone}"><div class="metric-content"><span class="metric-label">${label}</span><span class="metric-note">${note}</span><div class="metric-value">${numeric(val)}${unit&&val!==null?`<span class="unit">${unit}</span>`:''}</div><div class="metric-trend trend-${trend}"><span class="metric-trend-icon" aria-hidden="true">${diff===null?'–':arrowFor(diff)}</span><span>${delta}</span></div></div><div class="spark-area">${plot(series,`m${i}`)}</div></div>`;
     }).join('');
   }
   function tasksHTML(epic) {
@@ -99,7 +102,7 @@ import { loadReleaseManifest, openSprintStore } from './data-store.js';
   }
   function renderHighlights(data){
     const es=data.epics.filter(e=>e.highlight_rank!==null&&e.highlight_rank!==undefined).sort((a,b)=>a.highlight_rank-b.highlight_rank);
-    $('.highlight-grid').innerHTML=es.length?es.map(e=>`<button type="button" class="highlight" data-open="${escapeHTML(e.jira_key)}"><div class="hl-head"><span class="hl-index">${String(e.highlight_rank).padStart(2,'0')}</span><span class="hl-status"><i class="status-dot ${STATUS[e.status]?.[1]||''}"></i>${STATUS[e.status]?.[0]||'Unknown'}</span></div><h3>${escapeHTML(e.title)}</h3><p>${escapeHTML(e.delivered)}</p><div class="hl-foot"><span>${escapeHTML(e.domain)}</span>${externalArrow}</div></button>`).join(''):'<p class="section-empty">No material outcomes verified for this sprint.</p>';
+    $('.highlight-grid').innerHTML=es.length?es.map(e=>`<button type="button" class="highlight" data-open="${escapeHTML(e.jira_key)}"><div class="hl-head"><span class="hl-index">${String(e.highlight_rank).padStart(2,'0')}</span><span class="hl-status ${STATUS[e.status]?.[1]||'neutral'}"><i class="status-dot ${STATUS[e.status]?.[1]||'neutral'}"></i>${STATUS[e.status]?.[0]||'Unknown'}</span></div><h3>${escapeHTML(e.title)}</h3><p>${escapeHTML(e.delivered)}</p><div class="hl-foot"><span>${escapeHTML(e.domain)}</span>${externalArrow}</div></button>`).join(''):'<p class="section-empty">No material outcomes verified for this sprint.</p>';
     $$('.highlight[data-open]').forEach(b=>b.addEventListener('click',()=>{
       const epic=$$('.epic').find(e=>e.dataset.key===b.dataset.open);
       if(!epic)return;

@@ -590,3 +590,169 @@ body.data-loading .audit-state>span:last-child{overflow:hidden}
   body.data-loading .dependency-list{min-height:220px}
   body.data-loading .efficiency{min-height:182px}
 }
+
+
+/* Linear-density pass: semantic color is reserved for state, deltas and attention. */
+:root{
+  --status-green:#3f7d67;
+  --status-green-bg:rgba(63,125,103,.075);
+  --status-green-border:rgba(63,125,103,.20);
+  --status-blue:#5f73a8;
+  --status-blue-bg:rgba(95,115,168,.075);
+  --status-blue-border:rgba(95,115,168,.20);
+  --status-amber:#9a6b2f;
+  --status-amber-bg:rgba(154,107,47,.08);
+  --status-amber-border:rgba(154,107,47,.21);
+  --status-red:#a4524d;
+  --status-red-bg:rgba(164,82,77,.075);
+  --status-red-border:rgba(164,82,77,.20);
+  --status-neutral:#73757c;
+  --status-neutral-bg:rgba(115,117,124,.07);
+  --status-neutral-border:rgba(115,117,124,.17);
+}
+:root[data-theme="dark"]{
+  --status-green:#78b197;
+  --status-green-bg:rgba(120,177,151,.105);
+  --status-green-border:rgba(120,177,151,.22);
+  --status-blue:#95a7dc;
+  --status-blue-bg:rgba(149,167,220,.105);
+  --status-blue-border:rgba(149,167,220,.22);
+  --status-amber:#d0a15d;
+  --status-amber-bg:rgba(208,161,93,.105);
+  --status-amber-border:rgba(208,161,93,.23);
+  --status-red:#d9857d;
+  --status-red-bg:rgba(217,133,125,.105);
+  --status-red-border:rgba(217,133,125,.23);
+  --status-neutral:#a0a2a9;
+  --status-neutral-bg:rgba(160,162,169,.09);
+  --status-neutral-border:rgba(160,162,169,.18);
+}
+
+/* Typography: restrained weights, tighter hierarchy, tabular data. */
+body{font-variant-numeric:tabular-nums;font-optical-sizing:auto}
+.hero h1{font-weight:600;letter-spacing:-.04em}
+.hero p{max-width:780px;color:var(--text-secondary)}
+.section-title h2{font-weight:600;letter-spacing:-.028em}
+.section-title p{max-width:720px}
+.metric-value,.eff-number{font-variant-numeric:tabular-nums lining-nums}
+.project-title,.task-title,.row-title{letter-spacing:-.015em}
+
+/* Five-column executive KPI strip on wide screens. */
+.metrics{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  border-top:1px solid var(--hairline);
+  border-bottom:1px solid var(--hairline);
+}
+.metric{
+  min-height:136px;
+  padding:16px 18px;
+  border-left:1px solid var(--hairline);
+}
+.metric:first-child{border-left:0;padding-left:0}
+.metric:nth-child(even){border-left:1px solid var(--hairline);padding-left:18px}
+.metric:nth-child(-n+2){border-bottom:0}
+.metric-content{min-height:103px}
+.metric-label{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:500;color:var(--text-secondary);
+}
+.metric-label::before{
+  content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--status-neutral);opacity:.75;flex:none;
+}
+.metric-tone-accent .metric-label::before{background:var(--accent)}
+.metric-tone-blocked .metric-label::before{background:var(--status-red)}
+.metric-tone-risk .metric-label::before{background:var(--status-amber)}
+.metric-tone-delivered .metric-label::before{background:var(--status-green)}
+.metric-note{font-size:10.5px;line-height:1.4}
+.metric-value{font-size:37px;letter-spacing:-.05em}
+.metric-tone-blocked .metric-value{color:var(--status-red)}
+.metric-tone-risk .metric-value{color:var(--status-amber)}
+.metric-trend{gap:5px;font-size:10.5px;line-height:1.35}
+.metric-trend-icon{font-size:11px;font-weight:600}
+.metric-trend.trend-positive{color:var(--status-green)}
+.metric-trend.trend-negative{color:var(--status-red)}
+.metric-trend.trend-neutral{color:var(--text-tertiary)}
+.spark-area{right:13px;width:31%;max-width:82px;height:34px;opacity:.72}
+.metric-tone-blocked .spark-area .curve{stroke:var(--status-red)}
+.metric-tone-risk .spark-area .curve{stroke:var(--status-amber)}
+.metric-tone-delivered .spark-area .curve{stroke:var(--status-green)}
+
+/* Status chips: compact, semantic, low-saturation. */
+.status,.hl-status{
+  width:max-content;min-height:22px;padding:2px 7px;
+  border:1px solid var(--status-neutral-border);
+  border-radius:6px;background:var(--status-neutral-bg);
+  color:var(--status-neutral);font-weight:500;line-height:16px;
+}
+.status.delivered,.hl-status.delivered{color:var(--status-green);background:var(--status-green-bg);border-color:var(--status-green-border)}
+.status.progressing,.hl-status.progressing{color:var(--status-blue);background:var(--status-blue-bg);border-color:var(--status-blue-border)}
+.status.blocked,.hl-status.blocked{color:var(--status-red);background:var(--status-red-bg);border-color:var(--status-red-border)}
+.status.risk,.hl-status.risk{color:var(--status-amber);background:var(--status-amber-bg);border-color:var(--status-amber-border)}
+.status.neutral,.hl-status.neutral{color:var(--status-neutral)}
+.status-dot{width:5px;height:5px}
+.status-dot.delivered{background:var(--status-green)}
+.status-dot.progressing{background:var(--status-blue)}
+.status-dot.blocked{background:var(--status-red)}
+.status-dot.risk{background:var(--status-amber)}
+.status-dot.neutral{background:var(--status-neutral)}
+
+/* Portfolio state is readable without turning rows into colored cards. */
+.epic[data-status="BLOCKED"]>.epic-summary{box-shadow:inset 2px 0 0 var(--status-red)}
+.epic[data-status="AT_RISK"]>.epic-summary{box-shadow:inset 2px 0 0 var(--status-amber)}
+.epic[data-status="DELIVERED"]>.epic-summary{box-shadow:inset 2px 0 0 rgba(63,125,103,.58)}
+.epic[data-status="PROGRESSING"]>.epic-summary{box-shadow:inset 2px 0 0 rgba(95,115,168,.42)}
+.epic-summary{padding-left:20px}
+.epic[open]>.epic-summary{box-shadow:none}
+.epic[open][data-status="BLOCKED"]>.epic-summary{box-shadow:inset 2px 0 0 var(--status-red)}
+.epic[open][data-status="AT_RISK"]>.epic-summary{box-shadow:inset 2px 0 0 var(--status-amber)}
+.epic[open][data-status="DELIVERED"]>.epic-summary{box-shadow:inset 2px 0 0 rgba(63,125,103,.58)}
+.epic[open][data-status="PROGRESSING"]>.epic-summary{box-shadow:inset 2px 0 0 rgba(95,115,168,.42)}
+
+/* Attention gets one controlled amber surface; everything else stays neutral. */
+.pulse-side{
+  background:linear-gradient(90deg,var(--status-amber-bg),transparent 62%);
+  padding-left:25px;
+}
+.attention-dot{background:var(--status-amber);box-shadow:0 0 0 3px var(--status-amber-bg)}
+.attention p{color:var(--text-secondary)}
+
+/* Highlights retain white space while status carries the signal. */
+.highlight{border-color:var(--hairline)}
+.highlight:hover{border-color:var(--border-strong)}
+.hl-head{min-height:24px}
+.highlight h3{margin-top:11px}
+.highlight p{margin-top:6px}
+.hl-foot{padding-top:14px}
+
+/* Slightly denser supporting sections. */
+.portfolio-head{font-weight:500;letter-spacing:.01em;text-transform:none}
+.group-title{font-weight:500}
+.cell-copy,.detail-value,.row-copy{line-height:1.5}
+.dep-row{padding:14px 0}
+.eff-number{font-size:24px}
+.audit-bar{margin-top:20px}
+
+/* Keep the CLS reservation aligned with the five-column final geometry. */
+body.data-loading .metrics{min-height:136px}
+
+@media(max-width:1100px){
+  .metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .metric{border-left:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+  .metric:nth-child(3n+1){border-left:0;padding-left:0}
+  .metric:nth-child(n+4){border-bottom:0}
+  .metric:nth-child(even){padding-left:18px}
+  body.data-loading .metrics{min-height:272px}
+}
+@media(max-width:720px){
+  .metrics{grid-template-columns:1fr}
+  .metric,.metric:nth-child(even),.metric:nth-child(3n+1){
+    border-left:0;border-bottom:1px solid var(--hairline);
+    padding:14px 0;
+  }
+  .metric:last-child{border-bottom:0}
+  .metric-value{font-size:35px}
+  .spark-area{width:24%;max-width:92px}
+  .status,.hl-status{min-height:21px;padding:2px 6px}
+  body.data-loading .metrics{min-height:660px}
+}
