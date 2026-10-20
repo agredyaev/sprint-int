@@ -160,3 +160,13 @@ test('second craft pass keeps body dense and visually quiet', () => {
   assert.match(css, /\.audit-row\{[\s\S]*min-height:50px/);
   assert.match(css, /\.audit-icon\{[\s\S]*border:0!important/);
 });
+
+
+test('header uses the DXC mark with theme-resolved contrast', () => {
+  const html = read('../site/index.html');
+  const css = read('../site/assets/styles.css');
+  assert.match(html, /class="dxc-logo" src="\.\/assets\/dxc-mark\.svg"/);
+  assert.match(css, /\.dxc-logo\{[\s\S]*filter:brightness\(0\) saturate\(100%\)/);
+  assert.match(css, /:root\[data-theme="dark"\] \.dxc-logo\{[\s\S]*filter:none/);
+  assert.match(css, /\.mark\{[\s\S]*background:transparent!important/);
+});
