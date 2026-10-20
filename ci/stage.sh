@@ -22,9 +22,9 @@ manifest_count="$(jq '.sprints|length' "$manifest")"
 expected=("$source_dir/history.parquet")
 while IFS= read -r id; do
  expected+=("$source_dir/sprints/$id.parquet")
-done < <(jq -r '.sprints[].id' "$manifest")
+done <<< "$(jq -r '.sprints[].id' "$manifest")"
 # Unknown files anywhere in data are not permitted (including dotfiles and links).
-while IFS= read -r -d '' f; do
+find "$source_dir" -mindepth 1 \( -type f -o -type l \) -print0 | while IFS= read -r -d '' f; do
  case "$f" in
    "$source_dir/manifest.json") ;;
    "$source_dir/history.parquet") ;;
@@ -34,7 +34,7 @@ while IFS= read -r -d '' f; do
      "$found" || { echo "Unexpected data file: $f" >&2; exit 1; };;
    *) echo "Unexpected data file: $f" >&2; exit 1;;
  esac
-done < <(find "$source_dir" -mindepth 1 \( -type f -o -type l \) -print0)
+done
 for f in "${expected[@]}"; do
  [[ -f "$f" && ! -L "$f" ]] || { echo "Missing/symlinked Parquet: $f" >&2; exit 1; }
  relative="${f#"$source_dir"/}"
@@ -51,11 +51,11 @@ static=(site/index.html site/assets/app.js site/assets/data-store.js site/assets
 for required in "${static[@]}"; do
  [[ -f "$required" && ! -L "$required" ]] || { echo "Missing static file: $required" >&2; exit 1; }
 done
-while IFS= read -r -d '' file; do
+find site -mindepth 1 \( -type f -o -type l \) -print0 | while IFS= read -r -d '' file; do
  approved=false
  for entry in "${static[@]}"; do [[ "$file" == "$entry" ]] && approved=true && break; done
  "$approved" || { echo "Unexpected site file: $file" >&2; exit 1; }
-done < <(find site -mindepth 1 \( -type f -o -type l \) -print0)
+done
 # Never remove an arbitrary directory supplied through the staging argument.
 # A prior output is replaceable only when it carries our own staging marker.
 if [[ -z "$output_dir" || "$output_dir" == / || "$output_dir" == . || "$output_dir" == ..       || "$output_dir" == *"/../"* || "$output_dir" == *"/./"*       || "$output_dir" == ../* || "$output_dir" == */.. || "$output_dir" == */. ]]; then
