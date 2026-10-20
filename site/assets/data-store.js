@@ -14,11 +14,11 @@ const BASE_COLUMNS = [
   ...METRICS, 'report_json'
 ];
 
-async function loadManifest() {
+export async function loadReleaseManifest() {
   const response = await fetch(new URL('manifest.json', dir), {cache: 'no-store'});
   if (!response.ok) throw new Error(`HTTP ${response.status}: release manifest`);
   const manifest = await response.json();
-  if (manifest?.manifest_version !== 1 || manifest.format !== 'sprint-intelligence-parquet'
+  if (![1, 2].includes(manifest?.manifest_version) || manifest.format !== 'sprint-intelligence-parquet'
       || manifest.history?.path !== 'history.parquet' || !Array.isArray(manifest.sprints)
       || manifest.sprints.length < 1) {
     throw new Error('Unsupported release manifest');
@@ -43,6 +43,19 @@ async function loadManifest() {
   }
   if (entries.size !== manifest.sprints.length + 1) {
     throw new Error('Duplicate paths in release manifest');
+  }
+  if (manifest.manifest_version === 2) {
+    const b = manifest.bootstrap;
+    if (!b || typeof b.sprint_id !== 'string' || !sprintIdRe.test(b.sprint_id)
+        || typeof b.period_label !== 'string' || typeof b.published_at !== 'string'
+        || typeof b.team !== 'string' || typeof b.executive_summary !== 'string'
+        || typeof b.pulse !== 'string' || typeof b.attention !== 'string'
+        || typeof b.attention_owner !== 'string' || typeof b.is_demo !== 'boolean'
+        || !Number.isSafeInteger(b.reviewed_issues) || b.reviewed_issues < 0
+        || !Number.isSafeInteger(b.active_initiatives) || b.active_initiatives < 0
+        || !manifest.sprints.some(item => item.id === b.sprint_id)) {
+      throw new Error('Malformed release bootstrap');
+    }
   }
   return { manifest, entries };
 }
@@ -174,8 +187,8 @@ export function createSprintReader({ db, conn, files, manifest, rows }) {
   return { getSprint, close };
 }
 
-export async function openSprintStore() {
-  const {manifest, entries} = await loadManifest();
+export async function openSprintStore(release = null) {
+  const {manifest, entries} = release ?? await loadReleaseManifest();
   const duckdb = await import(CDN);
   const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
   const workerURL = URL.createObjectURL(new Blob([
