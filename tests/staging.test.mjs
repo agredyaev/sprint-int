@@ -60,3 +60,33 @@ test('staging refuses to overwrite an unrelated directory or a parent path',()=>
     assert.match(relative.stderr,/Unsafe stage output path/);
   } finally {rmSync(f.dir,{recursive:true,force:true})}
 });
+
+
+test('v2 manifest bootstrap must reference a listed sprint',()=>{
+  const f=fixture();try {
+    const path=join(f.data,'manifest.json');
+    const manifest=JSON.parse(readFileSync(path,'utf8'));
+    manifest.manifest_version=2;
+    manifest.bootstrap={
+      sprint_id:'26.21',
+      period_label:'5 Oct – 16 Oct 2026',
+      published_at:'2026-10-17T08:00:00Z',
+      is_demo:true,
+      team:'Reporting & Analytics (fictional)',
+      reviewed_issues:42,
+      executive_summary:'Synthetic executive summary.',
+      pulse:'Synthetic pulse.',
+      attention:'Synthetic attention.',
+      attention_owner:'Synthetic owner.',
+      active_initiatives:7,
+    };
+    writeFileSync(path,JSON.stringify(manifest));
+    const accepted=f.run();
+    assert.equal(accepted.status,0,accepted.stderr);
+    manifest.bootstrap.sprint_id='26.22';
+    writeFileSync(path,JSON.stringify(manifest));
+    const rejected=f.run();
+    assert.notEqual(rejected.status,0);
+    assert.match(rejected.stderr,/Invalid Parquet release manifest/);
+  } finally {rmSync(f.dir,{recursive:true,force:true})}
+});

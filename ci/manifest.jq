@@ -34,5 +34,5 @@ and (
   or
   (.manifest_version == 2 and exact_keys(["bootstrap","format","history","manifest_version","sprints"])
     and (.bootstrap | bootstrap)
-    and ([.sprints[].id] | index(.bootstrap.sprint_id)) != null)
+    and (.bootstrap.sprint_id as $bootstrap_id | ([.sprints[].id] | index($bootstrap_id)) != null))
 )
