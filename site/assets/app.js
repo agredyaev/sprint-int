@@ -1,5 +1,5 @@
-/* Sprint Intelligence · read-only presentation layer. All report data comes from Parquet. */
-import { openSprintStore } from './data-store.js';
+/* Sprint Intelligence · read-only presentation layer. First paint uses manifest bootstrap; canonical detail comes from Parquet. */
+import { loadReleaseManifest, openSprintStore } from './data-store.js';
 (() => {
   'use strict';
   const $ = (s, r = document) => r.querySelector(s);
@@ -25,6 +25,18 @@ import { openSprintStore } from './data-store.js';
   ];
   const numeric = x => x == null ? '—' : (Number.isInteger(Number(x)) ? String(x) : Number(x).toFixed(1));
   const metricAmount = (data,k) => data.metrics?.[k] == null ? null : Number(data.metrics[k]);
+  function renderBootstrap(b){
+    if(!b)return;
+    $('.hero .kicker').textContent=`Reporting · Sprint ${b.sprint_id}${b.is_demo?' · DEMO':''}`;
+    $('.hero p').textContent=b.executive_summary;
+    $('.hero-side-value').textContent=`${b.period_label} · ${b.team}`;
+    $('.hero-side-meta').innerHTML=`<span>${numeric(b.active_initiatives)} active initiatives</span><span>${b.reviewed_issues} Jira items reviewed</span>${b.is_demo?'<span>Illustrative data</span>':''}`;
+    $('.pulse-main p').textContent=b.pulse;
+    $('.attention p').textContent=b.attention || 'No management decision requested this sprint.';
+    $('.attention-meta').textContent=b.attention_owner;
+    $('.sync').setAttribute('title','Updated '+b.published_at);
+    $('.sync').setAttribute('aria-label','Updated '+b.published_at);
+  }
   const historyFor = (key, id) => {
     const pos=index.findIndex(x=>x.id===id);
     return index.slice(pos, pos+4).reverse().map(row => ({id:row.id, value: row.metrics?.[key] == null ? null : Number(row.metrics[key])}));
@@ -152,12 +164,14 @@ import { openSprintStore } from './data-store.js';
   }
   async function boot(){
     try {
-      store=await openSprintStore();
+      const release=await loadReleaseManifest();
+      const wanted=new URL(window.location.href).searchParams.get('sprint');
+      if(!wanted && release.manifest.bootstrap) renderBootstrap(release.manifest.bootstrap);
+      store=await openSprintStore(release);
       index=store.rows;
       const selector=$('#sprintSelect');
       selector.innerHTML=index.map(x=>`<option value="${escapeHTML(x.id)}">${escapeHTML(x.label)}</option>`).join('');
       selector.addEventListener('change',e=>selectSprint(e.target.value));
-      const wanted=new URL(window.location.href).searchParams.get('sprint');
       await selectSprint(index.some(x=>x.id===wanted)?wanted:index[0].id);
     } catch(err) {
       console.error(err);$('#loadError').hidden=false;

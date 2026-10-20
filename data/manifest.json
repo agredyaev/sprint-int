@@ -5,7 +5,7 @@
     "sha256": "9b9d5b28c24d42a475a59951277b69007ec441c61ac14b155d040755ae2ba5b8",
     "size": 2851
   },
-  "manifest_version": 1,
+  "manifest_version": 2,
   "sprints": [
     {
       "id": "26.16",
@@ -49,5 +49,18 @@
       "sha256": "240b73747683802bc67d695dfbe1b9741d7a36f9fad74e50d9839fe7bfc75e03",
       "size": 5806
     }
-  ]
+  ],
+  "bootstrap": {
+    "sprint_id": "26.21",
+    "period_label": "5 Oct – 16 Oct 2026",
+    "published_at": "2026-10-17T08:00:00Z",
+    "is_demo": true,
+    "team": "Reporting & Analytics (fictional)",
+    "reviewed_issues": 42,
+    "executive_summary": "Sales adoption and reporting API controls advanced; the finance dashboard remains blocked on DWH.",
+    "pulse": "Sales rollout progressed and forecast guardrails stabilized; finance planning remains blocked.",
+    "attention": "Confirm DWH-4812 handoff date and legacy retirement decision.",
+    "attention_owner": "Illustrative decision owner: Data Platform",
+    "active_initiatives": 7
+  }
 }

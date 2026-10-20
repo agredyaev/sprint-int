@@ -65,3 +65,18 @@ test('startup shell reserves dynamic layout until first sprint render', () => {
   assert.match(css, /body\.data-loading \.portfolio-shell\{min-height:499px\}/);
   assert.match(app, /document\.body\.classList\.remove\('data-loading'\)/);
 });
+
+
+test('cold start paints sealed manifest bootstrap before DuckDB initialization', () => {
+  const app = read('../site/assets/app.js');
+  const adapter = read('../site/assets/data-store.js');
+  const manifest = JSON.parse(read('../data/manifest.json'));
+  assert.equal(manifest.manifest_version, 2);
+  assert.equal(manifest.bootstrap.sprint_id, '26.21');
+  assert.match(app, /await loadReleaseManifest\(\)/);
+  assert.match(app, /renderBootstrap\(release\.manifest\.bootstrap\)/);
+  assert.match(app, /openSprintStore\(release\)/);
+  assert.ok(app.indexOf('renderBootstrap(release.manifest.bootstrap)') < app.indexOf('openSprintStore(release)'));
+  assert.match(adapter, /export async function loadReleaseManifest/);
+  assert.match(adapter, /release \?\? await loadReleaseManifest\(\)/);
+});

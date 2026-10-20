@@ -9,7 +9,7 @@ Amazon Quick analyzes Jira sprint evidence. The repository stores approved sprin
 | Amazon Quick | Fetch Jira/Confluence evidence; resolve Reporting ownership; classify issues; review findings; rank epics; invoke `sharpwriter` | Transient approved report and gate artifacts |
 | Quick Python + DuckDB | Validate the approved report, write Parquet, rebuild index, seal manifest | `data/sprints/<ID>.parquet`, `data/history.parquet`, `data/manifest.json` |
 | GitHub Actions | Verify release file set, sizes and SHA-256; stage static assets; deploy | GitHub Pages artifact |
-| Browser | Validate the manifest and Parquet files; query with DuckDB-Wasm; render summaries | Read-only dashboard |
+| Browser | Paint the manifest bootstrap immediately; then validate Parquet files and hydrate full detail with DuckDB-Wasm | Read-only dashboard |
 
 Production reports require a passing classification review, `sharpwriter` receipt and publication gate. Test data never constitutes evidence of those checks. Details: [execution harness](docs/EXECUTION-HARNESS.md) and [quality integrity](docs/QUALITY-INTEGRITY.md).
 

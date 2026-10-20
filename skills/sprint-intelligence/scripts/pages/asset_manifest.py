@@ -33,10 +33,27 @@ def make_manifest(root: Path, *, allow_demo: bool = False) -> dict:
         entry=item(data / 'sprints' / f'{sid}.parquet', f'sprints/{sid}.parquet')
         entry.update(id=sid, schema_version=report['sprint'].get('schema_version',1))
         entries.append(entry)
-    return {'manifest_version': 1,
+    latest=max(reports,key=lambda r:(r['sprint']['ended_on'],r['sprint']['id']))
+    sprint=latest['sprint']
+    metrics=latest['metrics']
+    bootstrap={
+        'sprint_id': sprint['id'],
+        'period_label': sprint['period_label'],
+        'published_at': sprint['published_at'],
+        'is_demo': sprint.get('is_demo', False),
+        'team': sprint['team'],
+        'reviewed_issues': sprint['reviewed_issues'],
+        'executive_summary': sprint['executive_summary'],
+        'pulse': sprint['pulse'],
+        'attention': sprint.get('attention') or '',
+        'attention_owner': sprint.get('attention_owner') or '',
+        'active_initiatives': metrics['active_initiatives'],
+    }
+    return {'manifest_version': 2,
             'format': 'sprint-intelligence-parquet',
             'history': item(data / 'history.parquet','history.parquet'),
-            'sprints': entries}
+            'sprints': entries,
+            'bootstrap': bootstrap}
 
 
 def canonical_bytes(manifest: dict) -> bytes:
